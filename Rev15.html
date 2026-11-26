@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MajuBersama Pagaralam</title>
+<style>
+:root{--green:#168447;--green-dark:#106636;--ink:#17211b;--muted:#67766e;--line:#e4ebe6;--bg:#f5f7f5;--amber:#b45309;--amber-bg:#fffbeb;--red:#b91c1c;--red-bg:#fef2f2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,-apple-system,Arial,sans-serif}
+
+/* Header & Navigasi */
+.site-header{background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:8;box-shadow:0 2px 10px rgba(23,33,27,.04)}
+.header-top{min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px max(16px,calc((100% - 1140px)/2))}
+.logo{font-weight:900;font-size:19px;letter-spacing:-0.6px;line-height:1.1;user-select:none;cursor:pointer}.logo span{color:var(--green)}.logo small{display:block;font-size:10px;letter-spacing:1.2px;font-weight:800;margin-top:2px;color:var(--muted)}
+.nav-bar{display:flex;gap:7px;overflow-x:auto;padding:6px max(16px,calc((100% - 1140px)/2)) 10px;border-top:1px solid #f0f4f1;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav-bar::-webkit-scrollbar{display:none}
+.nav-btn{white-space:nowrap;padding:7px 12px;font-size:12.5px;border-radius:10px;background:#f7faf8;border:1px solid var(--line);color:var(--ink);font-weight:700;transition:.15s}
+.nav-btn:hover,.nav-btn:active{background:#eaf1ec}
+.nav-btn.active-page{background:var(--green);color:#fff;border-color:var(--green)}
+.cart-btn{white-space:nowrap;padding:9px 14px;font-size:12.5px;border-radius:10px;display:flex;align-items:center;gap:6px}
+
+.wrap{max-width:1140px;margin:auto;padding:18px 16px}
+button{border:0;border-radius:10px;padding:9px 13px;font-weight:750;cursor:pointer;background:#edf2ee;color:var(--ink);transition:.15s;font-size:13px}button:disabled{opacity:.45;cursor:not-allowed}
+.primary{background:var(--green);color:#fff}.primary:hover:not(:disabled){background:var(--green-dark)}
+.dark{background:#17211b;color:#fff}.outline{background:#fff;border:1px solid var(--line)}.outline:hover:not(:disabled){background:#f8faf9}
+.danger-btn{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
+
+/* Hero & Katalog */
+.hero{background:#17211b;color:#fff;border-radius:20px;padding:22px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 10px 24px rgba(23,33,27,.07)}
+.hero.preloved-hero{background:#1c2620;border:1px solid #2d3c32}
+.hero h1{font-size:clamp(24px,4.2vw,36px);line-height:1.12;margin:6px 0}
+.hero p{color:#c5d1c9;max-width:560px;line-height:1.5;margin:0 0 14px;font-size:13.5px}
+.eyebrow{color:#8de0a9;font-weight:800;font-size:11px;letter-spacing:1.1px}
+.preloved-hero .eyebrow{color:#fcd34d}
+.hero-actions{display:flex;flex-wrap:wrap;gap:8px}
+.hero-icon{font-size:52px;flex-shrink:0}
+.badge-preloved{display:inline-block;background:var(--amber-bg);color:var(--amber);border:1px solid #fde68a;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:99px}
+.badge-ok{display:inline-block;background:#eef8f2;color:var(--green);border:1px solid #c6e5d2;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:99px}
+.badge-refund{display:inline-block;background:var(--red-bg);color:var(--red);border:1px solid #fecaca;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:99px}
+.preloved-box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:20px}
+.fee-box{background:#f4faf6;border:1px solid #cce7d6;border-radius:11px;padding:10px 12px;margin:8px 0 12px;font-size:12.5px;line-height:1.5}
+.fee-box b{color:var(--green)}
+@media(max-width:520px){
+  .hero{padding:18px 16px}
+  .hero-icon{display:none}
+  .hero-actions button{flex:1;min-width:120px}
+  .preloved-box{padding:14px}
+}
+
+.toolbar{display:flex;gap:7px;overflow:auto;padding:14px 0 6px;scrollbar-width:none}.toolbar::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;font-size:12.5px;padding:7px 12px}.chip.active{background:#17211b;color:#fff;border-color:#17211b}
+h2.sec-title{font-size:18px;margin:10px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;cursor:pointer;transition:.15s;display:flex;flex-direction:column}.product:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(23,33,27,.06)}.product img{width:100%;height:142px;object-fit:cover;background:#edf2ee}.pbody{padding:12px;display:flex;flex-direction:column;flex:1}.muted{color:var(--muted);font-size:12.5px}.price{font-size:16.5px;font-weight:900;margin:5px 0}.stock{font-size:11.5px;font-weight:800;color:var(--green)}.empty{padding:28px;text-align:center;color:var(--muted);background:#fff;border-radius:14px;grid-column:1/-1}
+.actions{display:flex;gap:6px;margin-top:auto;padding-top:10px}.actions button{flex:1;padding:8px 5px;font-size:11.5px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:22px 16px;line-height:1.55}
+
+/* Modal Ringkas (Anti Tinggi Berlebihan) */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:20;align-items:center;justify-content:center;padding:12px}.modal.show{display:flex}
+.sheet{background:#fff;width:100%;max-width:680px;max-height:84vh;overflow-y:auto;border-radius:18px;padding:18px;box-shadow:0 20px 45px rgba(0,0,0,.22)}
+.sheet h2{margin:0 0 10px;font-size:19px}
+.close{float:right;background:#f0f3f1;border-radius:50%;width:32px;height:32px;padding:0;font-size:17px;line-height:32px}
+input,select,textarea{width:100%;padding:9px 11px;border:1px solid #dce4de;border-radius:9px;margin:4px 0 9px;font:inherit;font-size:13.5px;background:#fff}label{font-size:12.5px;font-weight:750;display:block}.field{margin-top:6px}.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}@media(max-width:480px){.two{grid-template-columns:1fr}}
+.product-detail img{width:100%;height:190px;object-fit:cover;border-radius:12px}.status{padding:11px 12px;background:#f0f7f2;border:1px solid #d7e9dd;border-radius:11px;margin:8px 0;font-size:13px}.status b{color:var(--green)}
+.item{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--line)}.item img{width:50px;height:50px;object-fit:cover;border-radius:8px}.item .grow{flex:1}
+.admin-row{display:flex;align-items:center;gap:9px;padding:9px 10px;background:#f7faf8;border:1px solid #e6ece8;border-radius:11px;margin:6px 0;font-size:13px}.admin-row img{width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0}.admin-row .grow{flex:1;min-width:0}.admin-row small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
+.scroll-box{max-height:230px;overflow-y:auto;padding-right:2px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#17211b;color:#fff;padding:10px 16px;border-radius:11px;z-index:30;display:none;box-shadow:0 8px 24px rgba(0,0,0,.2);font-size:12.5px;font-weight:650}.toast.show{display:block}
+.notice{background:#fff8e8;border:1px solid #f1dfb6;border-radius:11px;padding:10px 12px;color:#74551a;font-size:12px;line-height:1.5}
+.qris{border:1px dashed var(--green);border-radius:12px;text-align:center;padding:12px;background:#fafdfb}.qris img{width:150px;height:150px;object-fit:contain;border-radius:8px;background:#fff}
+.wallet-chips{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:8px 0 4px}
+.wallet-chip{font-size:10.5px;padding:4px 8px;border-radius:99px;background:#eef5f0;color:#14532d;font-weight:700}
+
+/* Ringkasan & Tab Compact */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0 12px}
+@media(max-width:560px){.kpi-grid{grid-template-columns:1fr}}
+.kpi-card{background:#f7faf8;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.kpi-card small{display:block;color:var(--muted);font-size:10.5px;font-weight:750;text-transform:uppercase;letter-spacing:.35px}
+.kpi-card strong{display:block;font-size:16px;font-weight:900;color:var(--ink);margin-top:2px}
+.kpi-card.highlight{background:#eef8f2;border-color:#c6e5d2}.kpi-card.highlight strong{color:var(--green)}
+.admin-tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;border-bottom:1px solid var(--line);scrollbar-width:none}.admin-tabs::-webkit-scrollbar{display:none}
+.admin-tab{white-space:nowrap;padding:6px 10px;font-size:11.5px;border-radius:8px;background:#f3f6f4;color:var(--ink);font-weight:750}
+.admin-tab.active{background:#17211b;color:#fff}
+.admin-section{display:none}.admin-section.active{display:block}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.section-head h3{margin:0;font-size:14px}
+
+@media(min-width:650px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .product img{height:175px}
+  .logo small{display:inline;margin-left:4px}
+}
+</style></head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="logo" id="brandLogo" title="MajuBersama Pagaralam">MAJU<span>BERSAMA.</span> <small>PAGARALAM</small></div>
+    <button class="dark cart-btn" onclick="openCart()">🛒 Keranjang (<span id="count">0</span>)</button>
+  </div>
+  <nav class="nav-bar" aria-label="Menu utama">
+    <button class="nav-btn active-page" id="navStore" onclick="switchPage('store')">🏠 Halaman Depan</button>
+    <button class="nav-btn" id="navPreloved" onclick="switchPage('preloved')">♻️ Preloved / Bekas</button>
+    <button class="nav-btn" onclick="openJastipModal()">🛍️ Jastip QRIS</button>
+    <button class="nav-btn" onclick="openPrelovedConsign()">📝 Titip Jual</button>
+    <button class="nav-btn" onclick="openPartnerPortal()">🤝 Mitra (Daftar & Login)</button>
+    <button class="nav-btn" onclick="openTracking()">📦 Lacak & Retur</button>
+    <button class="nav-btn" onclick="openContact()">💬 Kontak</button>
+  </nav>
+</header>
+
+<main class="wrap">
+  <!-- HALAMAN DEPAN -->
+  <section id="pageStore">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">MARKETPLACE LOKAL • KOMISI 10% TRANSPARAN</div>
+        <h1>Belanja mudah.<br>Bayar di rumah.</h1>
+        <p id="heroDesc">Pilih barang toko atau mitra lokal, tentukan lokasi, lalu pesan. Pengantaran lokal cepat untuk wilayah Pagaralam—tanpa kurir ekspedisi.</p>
+        <div class="hero-actions">
+          <button class="primary" onclick="document.getElementById('produk').scrollIntoView({behavior:'smooth'})">Mulai belanja ↓</button>
+          <button class="outline" onclick="openJastipModal()">Jastip QRIS</button>
+          <button class="outline" onclick="openPartnerPortal()">Daftar / Login Mitra</button>
+          <button class="outline" onclick="switchPage('preloved')">Preloved →</button>
+        </div>
+      </div>
+      <div class="hero-icon" aria-hidden="true">🛍️</div>
+    </section>
+
+    <div class="toolbar" id="filters"></div>
+    <h2 class="sec-title" id="produk">Produk pilihan toko & mitra</h2>
+    <div class="grid" id="products"></div>
+  </section>
+
+  <!-- HALAMAN TERPISAH: BARANG BEKAS / PRELOVED -->
+  <section id="pagePreloved" style="display:none">
+    <section class="hero preloved-hero">
+      <div>
+        <div class="eyebrow">KATALOG TERPISAH • BARANG BEKAS & PRELOVED</div>
+        <h1>Barang bekas layak pakai.<br>Harga hemat lokal.</h1>
+        <p>Katalog khusus barang bekas / preloved. Setiap transaksi berhasil dikenakan komisi marketplace <b>10%</b> dan <b>90%</b> dana bersih untuk pemilik barang.</p>
+        <div class="hero-actions">
+          <button class="primary" onclick="document.getElementById('produkPreloved').scrollIntoView({behavior:'smooth'})">Jelajahi preloved ↓</button>
+          <button class="outline" onclick="openPrelovedConsign()">+ Ajukan Titip Jual</button>
+          <button class="outline" onclick="switchPage('store')">← Halaman Depan</button>
+        </div>
+      </div>
+      <div class="hero-icon" aria-hidden="true">♻️</div>
+    </section>
+
+    <div class="toolbar" id="prelovedFilters"></div>
+    <h2 class="sec-title" id="produkPreloved">Katalog barang bekas / preloved</h2>
+    <div class="grid" id="prelovedProducts"></div>
+
+    <div class="preloved-box" id="titipJualSection">
+      <span class="badge-preloved">TITIP JUAL BARANG BEKAS</span>
+      <h2 style="margin:4px 0 4px">Ajukan titip jual barang bekas</h2>
+      <p class="muted" style="margin:0 0 10px">Komisi marketplace <b>10%</b> per transaksi berhasil; <b>90%</b> dana bersih untuk pemilik barang.</p>
+
+      <form id="consignForm" onsubmit="submitPrelovedConsign(event)">
+        <div class="two">
+          <div><label>Nama pemilik barang</label><input id="consignOwner" required placeholder="Nama lengkap"></div>
+          <div><label>Nomor WhatsApp</label><input id="consignPhone" required inputmode="tel" placeholder="08xxxxxxxxxx"></div>
+        </div>
+        <div class="two">
+          <div><label>Rekening / E-Wallet pencairan dana</label><input id="consignPayoutAcc" required placeholder="Contoh: DANA 0812xxx / BRI 1234xxx"></div>
+          <div><label>Lokasi / alamat barang</label><input id="consignAddress" required placeholder="Kecamatan / jalan / patokan"></div>
+        </div>
+        <div class="two">
+          <div><label>Nama barang bekas</label><input id="consignName" required placeholder="Contoh: Sepeda Lipat / Kulkas"></div>
+          <div><label>Harga jual (Rp)</label><input id="consignPrice" type="number" min="1000" required placeholder="150000" oninput="updateConsignPreview()"></div>
+        </div>
+        <div class="two">
+          <div><label>Jumlah / stok</label><input id="consignStock" type="number" min="1" value="1" required oninput="updateConsignPreview()"></div>
+          <div><label>Kategori</label><select id="consignCat"><option>Elektronik</option><option>Fashion</option><option>Perabot</option><option>Otomotif</option><option>Hobi & Olahraga</option><option>Lainnya</option></select></div>
+        </div>
+        <div class="fee-box" id="consignFeePreview"><b>Simulasi bagi hasil (Komisi 10%):</b> Masukkan harga jual untuk melihat rincian.</div>
+        <div class="two">
+          <div><label>Kondisi barang</label><select id="consignCondition"><option>Sangat layak pakai (90%+)</option><option>Layak pakai normal (80%+)</option><option>Ada minus ringan</option></select></div>
+          <div><label>Foto barang bekas (wajib)</label><input id="consignImage" type="file" accept="image/*" required><div id="consignPhotoPreview" class="muted"></div></div>
+        </div>
+        <label>Deskripsi & kelengkapan</label><textarea id="consignDesc" rows="2" placeholder="Kondisi fisik, fungsi, minus, kelengkapan..."></textarea>
+        <label style="display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:10px">
+          <input type="checkbox" id="consignSendWa" checked style="width:auto;margin:0"> Kirim ringkasan ke WhatsApp admin bantuan
+        </label>
+        <button class="primary" type="submit" style="width:100%">Kirim pengajuan titip jual</button>
+      </form>
+      <div id="consignNotice"></div>
+
+      <div class="status" style="margin-top:12px">
+        <b>Cek status, pencairan saldo & retur titip jual</b>
+        <div style="display:flex;gap:8px;margin-top:6px">
+          <input id="consignCheckPhone" inputmode="tel" placeholder="Nomor WA pemilik barang" style="margin:0">
+          <button class="dark" type="button" onclick="checkPrelovedConsign()">Cek status</button>
+        </div>
+        <div id="consignStatusResult"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="siteFooter">MajuBersama Pagaralam · COD lokal · QRIS · Komisi 10%</footer>
+
+<!-- MODAL JASTIP PESANAN -->
+<div class="modal" id="jastipModal"><div class="sheet"><button class="close" onclick="closeJastipModal()">×</button>
+  <h2>Jastip Pesanan (QRIS)</h2>
+  <p class="muted">Ongkos kirim jastip <b>Rp5.000/km</b> + <b>Komisi marketplace 10%</b>. Pembayaran wajib QRIS (tanpa COD).</p>
+  <form id="jastipForm" onsubmit="submitJastipOrder(event)">
+    <div class="two">
+      <div><label>Nama barang pesanan</label><input id="jastipItemName" required placeholder="Roti / Obat / Sparepart"></div>
+      <div><label>Harga barang (Rp)</label><input id="jastipItemPrice" type="number" min="1000" required placeholder="50000" oninput="updateJastipSummary()"></div>
+    </div>
+    <div class="two">
+      <div><label>Alamat toko pesanan</label><input id="jastipStoreAddress" required placeholder="Nama toko & alamat"></div>
+      <div><label>Nomor WA pemesan</label><input id="jastipBuyerPhone" required inputmode="tel" placeholder="08xxxxxxxxxx"></div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 8px">
+      <button class="dark" type="button" onclick="getJastipGPS()">📍 Ambil GPS toko</button>
+      <span id="jastipGpsLabel" class="muted">Belum mengambil koordinat toko.</span>
+    </div>
+    <label>Catatan tambahan (opsional)</label><input id="jastipNotes" placeholder="Ukuran, merek, atau titik antar...">
+    <div class="fee-box" id="jastipCalcBox"><b>Rincian biaya jastip:</b> Ambil GPS toko dan isi harga barang.</div>
+    <div class="qris" style="margin-bottom:10px">
+      <b>QRIS <span class="brand-name-label">MajuBersama</span></b> · Tagihan: <b id="jastipTotalQrisLabel">Rp 0</b><br>
+      <img id="jastipQrisImage" src="" alt="QRIS Pembayaran Jastip" style="margin-top:6px">
+      <div class="wallet-chips"><span class="wallet-chip">DANA / OVO / GoPay</span><span class="wallet-chip">ShopeePay / LinkAja</span><span class="wallet-chip">Mobile Banking QRIS</span></div>
+      <div class="two" style="margin-top:8px">
+        <button class="primary" type="button" onclick="openQrisInPaymentApp()">💳 Bayar via Aplikasi QRIS</button>
+        <button class="outline" type="button" onclick="downloadQrisImage()">⬇️ Unduh QRIS</button>
+      </div>
+      <div style="margin-top:8px;text-align:left">
+        <label>Upload bukti pembayaran QRIS (wajib)</label>
+        <input id="jastipProofFile" type="file" accept="image/*" capture="environment" required>
+        <div id="jastipProofPreview" class="muted"></div>
+      </div>
+    </div>
+    <button class="primary" type="submit" style="width:100%">Kirim pesanan jastip (QRIS)</button>
+  </form>
+</div></div>
+
+<!-- DETAIL PRODUK -->
+<div class="modal" id="detailModal"><div class="sheet"><button class="close" onclick="hide('detailModal')">×</button><div id="detailContent" class="product-detail"></div></div></div>
+
+<!-- CHECKOUT -->
+<div class="modal" id="cartModal"><div class="sheet"><button class="close" onclick="hide('cartModal')">×</button><h2 id="checkoutTitle">Checkout pesanan</h2><div id="cartItems"></div><h3 id="cartTotal" style="font-size:15px;margin:8px 0">Total: Rp0</h3>
+<div class="two">
+  <div><label>Nama penerima</label><input id="buyerName" placeholder="Nama lengkap"></div>
+  <div><label>Nomor WhatsApp</label><input id="buyerPhone" placeholder="08xxxxxxxxxx"></div>
+</div>
+<div class="two">
+  <div><label>Kecamatan</label><select id="district"><option value="">Pilih kecamatan</option><option>Pagar Alam Utara</option><option>Pagar Alam Selatan</option><option>Dempo Utara</option><option>Dempo Selatan</option><option>Dempo Tengah</option></select></div>
+  <div><label>Metode pembayaran</label><select id="paymentMethodSelect" onchange="toggleCheckoutQris()"><option value="COD">COD (Bayar di rumah)</option><option value="QRIS">QRIS</option></select></div>
+</div>
+<label>Alamat dan patokan</label><input id="buyerAddress" placeholder="Nama jalan, nomor rumah, patokan...">
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 8px">
+  <button class="dark" type="button" onclick="getGPS()">📍 Ambil lokasi GPS</button>
+  <span id="gpsLabel" class="muted">Wajib ambil GPS untuk hitung ongkir.</span>
+</div>
+<div id="qrisArea" class="qris" style="display:none;margin:8px 0">
+  <b>QRIS <span class="brand-name-label">MajuBersama</span></b> · Total: <b id="totalQRIS">Rp 0</b><br>
+  <img id="qrisImage" src="" alt="QRIS Toko" style="margin-top:6px">
+  <div style="margin-top:8px;text-align:left"><label>Upload bukti pembayaran (opsional/lampirkan)</label><input type="file" id="paymentProof" accept="image/*"></div>
+</div>
+<button class="primary" style="width:100%;margin-top:8px" onclick="placeOrder()">Buat pesanan</button></div></div>
+
+<!-- LACAK PESANAN & AJUKAN REFUND / RETUR -->
+<div class="modal" id="trackingModal"><div class="sheet"><button class="close" onclick="hide('trackingModal')">×</button><h2>Lacak Pesanan & Refund / Retur</h2>
+<p class="muted">Masukkan nomor pesanan (<code>MB-...</code> atau <code>JT-...</code>) untuk melacak status atau mengajukan refund/retur.</p>
+<div style="display:flex;gap:8px"><input id="trackId" placeholder="Contoh: MB-1234567 atau JT-1234567" style="margin:0"><button class="primary" onclick="trackOrder()">Lacak</button></div>
+<div id="trackingResult"></div></div></div>
+
+<!-- KONTAK ADMIN -->
+<div class="modal" id="contactModal"><div class="sheet"><button class="close" onclick="hide('contactModal')">×</button><h2>Kontak Admin & Bantuan</h2>
+<form id="contactForm" onsubmit="sendContact(event)">
+<div class="two">
+  <div><label>Nama pelanggan</label><input id="contactName" required placeholder="Nama lengkap"></div>
+  <div><label>Nomor WA pelanggan</label><input id="contactPhone" required inputmode="tel" placeholder="08xxxxxxxxxx"></div>
+</div>
+<label>Alamat pelanggan</label><input id="contactAddress" required placeholder="Alamat lengkap dan patokan">
+<label>Keluhan / pertanyaan</label><textarea id="contactIssue" required rows="3" placeholder="Ceritakan kendala atau pertanyaan Anda"></textarea>
+<label>Foto pendukung (opsional)</label><input id="contactPhoto" type="file" accept="image/*"><div id="contactPhotoPreview"></div>
+<button class="primary" type="submit" style="width:100%;margin-top:6px">Kirim ke WhatsApp Admin</button>
+</form>
+<div class="notice" style="margin-top:10px" id="contactInfoBox">WhatsApp bantuan toko: <b id="supportWaDisplay">0895413165377</b>.</div>
+</div></div>
+
+<!-- PORTAL MITRA: REGISTRASI, LOGIN & TAMBAH PRODUK -->
+<div class="modal" id="partnerModal"><div class="sheet"><button class="close" onclick="hide('partnerModal')">×</button>
+  <h2>Portal Mitra Marketplace</h2>
+  <div class="admin-tabs">
+    <button type="button" class="admin-tab active" data-ptab="pTabLogin" onclick="switchPartnerTab('pTabLogin')">🔐 Login & Dashboard Mitra</button>
+    <button type="button" class="admin-tab" data-ptab="pTabRegister" onclick="switchPartnerTab('pTabRegister')">📝 Registrasi Mitra Baru</button>
+  </div>
+
+  <!-- LOGIN MITRA -->
+  <div class="admin-section active" id="pTabLogin">
+    <div id="partnerLoginBox">
+      <form onsubmit="loginPartnerAccount(event)">
+        <div class="two">
+          <div><label>No. WA atau Email Mitra</label><input id="partnerLoginId" required placeholder="08xxxxxxxxxx atau email"></div>
+          <div><label>Sandi Akun Mitra</label><input id="partnerLoginPass" type="password" required placeholder="Masukkan sandi mitra"></div>
+        </div>
+        <button class="dark" type="submit" style="width:100%">Masuk Akun Mitra</button>
+      </form>
+      <div id="partnerLoginNotice" class="muted" style="margin-top:6px"></div>
+    </div>
+
+    <div id="partnerDashboard" style="display:none">
+      <div class="status" id="partnerProfileCard"></div>
+      <div class="kpi-grid" id="partnerKpiGrid"></div>
+
+      <div class="section-head"><h3>Tarik Saldo Mitra (Komisi Marketplace 10%)</h3></div>
+      <form onsubmit="requestPartnerWithdraw(event)">
+        <div class="two">
+          <div><label>Nominal Tarik Saldo (Rp)</label><input id="pWithdrawAmount" type="number" min="1000" required placeholder="Contoh: 100000"></div>
+          <div><label>Tujuan Rekening / E-Wallet</label><input id="pWithdrawDest" required placeholder="Bank / DANA / OVO / GoPay"></div>
+        </div>
+        <button class="primary" type="submit" style="width:100%">Ajukan Penarikan Saldo Mitra</button>
+      </form>
+      <div id="partnerWithdrawHistory" class="scroll-box" style="margin-top:8px"></div>
+
+      <div class="section-head"><h3>Tambah Barang ke Toko (Komisi 10%)</h3></div>
+      <form id="partnerProductForm" onsubmit="submitPartnerProduct(event)">
+        <div class="two">
+          <div><label>Nama barang</label><input id="ppName" required placeholder="Nama produk mitra"></div>
+          <div><label>Harga jual (Rp)</label><input id="ppPrice" type="number" min="100" required placeholder="25000"></div>
+        </div>
+        <div class="two">
+          <div><label>Stok</label><input id="ppStock" type="number" min="1" required placeholder="10"></div>
+          <div><label>Kategori</label><select id="ppCat"><option>Makanan</option><option>Minuman</option><option>Sembako</option><option>Elektronik</option><option>Fashion</option><option>Perabot</option><option>Lainnya</option></select></div>
+        </div>
+        <div class="two">
+          <div><label>Deskripsi barang</label><input id="ppDesc" placeholder="Deskripsi singkat produk"></div>
+          <div><label>Foto barang</label><input id="ppImage" type="file" accept="image/*" required></div>
+        </div>
+        <button class="primary" type="submit" style="width:100%;margin-top:6px">Kirim barang ke katalog toko</button>
+      </form>
+      <div id="partnerProductNotice"></div>
+      <div id="partnerMyProducts" class="scroll-box" style="margin-top:8px"></div>
+      <button class="outline" type="button" style="width:100%;margin-top:10px" onclick="logoutPartner()">Keluar Akun Mitra</button>
+    </div>
+  </div>
+
+  <!-- REGISTRASI MITRA -->
+  <div class="admin-section" id="pTabRegister">
+    <form id="partnerForm" onsubmit="submitPartner(event)">
+      <div class="two">
+        <div><label>Nama toko / usaha</label><input id="partnerStore" required placeholder="Nama toko"></div>
+        <div><label>Nama lengkap mitra</label><input id="partnerName" required placeholder="Nama pemilik"></div>
+      </div>
+      <div class="two">
+        <div><label>Nomor WA mitra</label><input id="partnerPhone" required inputmode="tel" placeholder="08xxxxxxxxxx"></div>
+        <div><label>Email mitra (opsional)</label><input id="partnerEmail" type="email" placeholder="mitra@email.com"></div>
+      </div>
+      <div class="two">
+        <div><label>Sandi akun mitra (min. 6 karakter)</label><input id="partnerPass" type="password" minlength="6" required placeholder="Buat sandi login"></div>
+        <div><label>Rekening / E-Wallet pencairan</label><input id="partnerBankAcc" required placeholder="BRI / BCA / DANA / OVO"></div>
+      </div>
+      <label>Alamat tepat toko</label><input id="partnerAddress" required placeholder="Alamat lengkap, jalan, patokan">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 8px">
+        <button class="dark" type="button" onclick="getPartnerGPS()">📍 Ambil GPS toko</button>
+        <span id="partnerGpsLabel" class="muted">Wajib ambil GPS lokasi toko.</span>
+      </div>
+      <button class="primary" type="submit" style="width:100%">Daftar Akun Mitra</button>
+    </form>
+    <div id="partnerRegisterResult"></div>
+  </div>
+</div></div>
+
+<!-- PANEL ADMIN RINGKAS (LOGIN, REGISTRASI, LUPA SANDI, SALDO, PENARIKAN & REFUND/RETUR) -->
+<div class="modal" id="adminModal"><div class="sheet"><button class="close" onclick="hide('adminModal')">×</button>
+  <h2 style="margin-bottom:8px">Panel Admin Marketplace</h2>
+
+  <!-- AUTH ADMIN: LOGIN, REGISTRASI & LUPA SANDI -->
+  <div id="adminAuthBox">
+    <div class="admin-tabs">
+      <button type="button" class="admin-tab active" data-atab="aTabLogin" onclick="switchAdminAuthTab('aTabLogin')">🔐 Login Admin</button>
+      <button type="button" class="admin-tab" data-atab="aTabRegister" onclick="switchAdminAuthTab('aTabRegister')">➕ Registrasi Admin</button>
+      <button type="button" class="admin-tab" data-atab="aTabForgot" onclick="switchAdminAuthTab('aTabForgot')">🔑 Lupa Sandi</button>
+    </div>
+
+    <!-- LOGIN ADMIN -->
+    <div class="admin-section active" id="aTabLogin">
+      <form onsubmit="loginAdminAccount(event)">
+        <label>Username / Email Admin</label>
+        <input id="adminLoginUser" required placeholder="admin atau email admin">
+        <label>Sandi Admin</label>
+        <input id="adminPass" type="password" required placeholder="Masukkan sandi admin">
+        <button class="dark" type="submit" style="width:100%">Masuk Panel Admin</button>
+      </form>
+      <p class="muted" style="margin-top:6px">Akun bawaan: <code>admin</code> / sandi <code>admin123</code> · Kode pemulihan bawaan: <code>PAGARALAM-2026</code>.</p>
+    </div>
+
+    <!-- REGISTRASI ADMIN BARU -->
+    <div class="admin-section" id="aTabRegister">
+      <form onsubmit="registerAdminAccount(event)">
+        <div class="two">
+          <div><label>Username / Email Admin</label><input id="regAdminUser" required placeholder="admin2 atau email"></div>
+          <div><label>Nama Lengkap Admin</label><input id="regAdminName" required placeholder="Nama pengelola"></div>
+        </div>
+        <div class="two">
+          <div><label>Sandi Baru (min. 6 karakter)</label><input id="regAdminPass" type="password" minlength="6" required placeholder="Sandi kuat"></div>
+          <div><label>Kode Pemulihan Lupa Sandi</label><input id="regAdminRecoveryCode" required placeholder="Contoh: RAHSIA-123"></div>
+        </div>
+        <div class="two">
+          <div><label>Pertanyaan Keamanan</label><input id="regAdminQuestion" required placeholder="Contoh: Nama kota kelahiran?"></div>
+          <div><label>Jawaban Keamanan</label><input id="regAdminAnswer" required placeholder="Jawaban rahasia"></div>
+        </div>
+        <button class="primary" type="submit" style="width:100%">Daftarkan Akun Admin</button>
+      </form>
+      <div id="adminRegNotice" class="muted" style="margin-top:6px"></div>
+    </div>
+
+    <!-- LUPA SANDI ADMIN -->
+    <div class="admin-section" id="aTabForgot">
+      <p class="muted" style="margin:0 0 8px">Reset sandi admin menggunakan <b>Kode Pemulihan</b> atau <b>Jawaban Pertanyaan Keamanan</b>.</p>
+      <form onsubmit="recoverAdminPassword(event)">
+        <div class="two">
+          <div><label>Username / Email Admin</label><input id="recAdminUser" required placeholder="admin atau email terdaftar"></div>
+          <div><label>Kode Pemulihan</label><input id="recAdminCode" placeholder="Masukkan kode pemulihan"></div>
+        </div>
+        <div class="two">
+          <div><label>Jawaban Pertanyaan Keamanan</label><input id="recAdminAnswer" placeholder="Atau isi jawaban keamanan"></div>
+          <div><label>Sandi Baru (min. 6 karakter)</label><input id="recAdminNewPass" type="password" minlength="6" required placeholder="Sandi pengganti"></div>
+        </div>
+        <button class="primary" type="submit" style="width:100%">Reset & Simpan Sandi Baru</button>
+      </form>
+      <div id="adminRecoverNotice" class="muted" style="margin-top:6px"></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD ADMIN RINGKAS -->
+  <div id="adminPanel" style="display:none">
+    <div class="kpi-grid" id="adminFinanceSummary"></div>
+
+    <div class="admin-tabs" role="tablist">
+      <button type="button" class="admin-tab active" data-tab="tabOrders" onclick="switchAdminTab('tabOrders')">📦 Pesanan & Retur</button>
+      <button type="button" class="admin-tab" data-tab="tabPayouts" onclick="switchAdminTab('tabPayouts')">💸 Penarikan Saldo</button>
+      <button type="button" class="admin-tab" data-tab="tabCatalog" onclick="switchAdminTab('tabCatalog')">🛍️ Katalog & Titip Jual</button>
+      <button type="button" class="admin-tab" data-tab="tabSettings" onclick="switchAdminTab('tabSettings')">⚙️ Pengaturan & Sandi</button>
+    </div>
+
+    <!-- TAB 1: PESANAN, JASTIP, PRELOVED & REFUND/RETUR -->
+    <section class="admin-section active" id="tabOrders">
+      <div class="section-head"><h3>Pesanan Jastip (QRIS · Komisi 10%)</h3></div>
+      <div id="adminJastipOrders" class="scroll-box"></div>
+
+      <div class="section-head"><h3>Pesanan Toko, Mitra & Preloved (Komisi 10%)</h3></div>
+      <div id="adminOrders" class="scroll-box"></div>
+
+      <div class="section-head"><h3>Persetujuan Mitra & Produk Mitra</h3></div>
+      <div id="adminPartners" class="scroll-box"></div>
+      <div id="adminPartnerProducts" class="scroll-box"></div>
+    </section>
+
+    <!-- TAB 2: PENARIKAN SALDO (PENJUALAN, TITIP JUAL, JASTIP, PRELOVED) -->
+    <section class="admin-section" id="tabPayouts">
+      <div class="section-head"><h3>Ajukan / Catat Penarikan Saldo (Komisi 10% Otomatis)</h3></div>
+      <form onsubmit="createAdminPayout(event)">
+        <div class="two">
+          <div>
+            <label>Sumber Dana / Modul</label>
+            <select id="payoutModule">
+              <option value="Penjualan Toko / Mitra">Penjualan Toko / Mitra</option>
+              <option value="Jasa Titip Jual">Jasa Titip Jual</option>
+              <option value="Jastip">Jastip</option>
+              <option value="Barang Preloved">Barang Preloved</option>
+            </select>
+          </div>
+          <div><label>Penerima / Pemilik Saldo</label><input id="payoutRecipient" required placeholder="Nama mitra / pemilik barang / admin"></div>
+        </div>
+        <div class="two">
+          <div><label>Nominal Kotor Penarikan (Rp)</label><input id="payoutGrossAmount" type="number" min="1000" required placeholder="Contoh: 200000"></div>
+          <div><label>Rekening / E-Wallet Tujuan</label><input id="payoutAccount" required placeholder="Bank / DANA / OVO / GoPay"></div>
+        </div>
+        <button class="primary" type="submit" style="width:100%">Proses Penarikan (Potong Komisi 10%)</button>
+      </form>
+      <div class="section-head"><h3>Riwayat Penarikan Saldo</h3></div>
+      <div id="adminPayoutList" class="scroll-box"></div>
+    </section>
+
+    <!-- TAB 3: KATALOG TOKO, PRELOVED & TITIP JUAL -->
+    <section class="admin-section" id="tabCatalog">
+      <div class="section-head"><h3 id="formTitle">Tambah / Edit Produk</h3></div>
+      <input type="hidden" id="editId">
+      <div class="two">
+        <div><label>Katalog</label><select id="prodTarget" onchange="syncAdminFormTarget()"><option value="store">Toko Utama</option><option value="preloved">Preloved / Bekas</option></select></div>
+        <div><label>Nama produk</label><input id="prodName" placeholder="Nama barang"></div>
+      </div>
+      <div class="two">
+        <div><label>Harga (Rp)</label><input id="prodPrice" type="number" min="0"></div>
+        <div><label>Stok</label><input id="prodStock" type="number" min="0"></div>
+      </div>
+      <div class="two">
+        <div><label>Kategori</label><select id="prodCat"><option>Makanan</option><option>Minuman</option><option>Sembako</option><option>Elektronik</option><option>Fashion</option><option>Perabot</option><option>Otomotif</option><option>Hobi & Olahraga</option><option>Lainnya</option></select></div>
+        <div><label>Upload gambar</label><input id="prodImage" type="file" accept="image/*"></div>
+      </div>
+      <label>Deskripsi</label><input id="prodDesc" placeholder="Deskripsi singkat produk">
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button class="primary" type="button" style="flex:1" onclick="saveProduct()">Simpan produk</button>
+        <button class="outline" type="button" onclick="resetProductForm()">Reset</button>
+      </div>
+
+      <div class="section-head"><h3>Daftar Produk Toko & Preloved</h3></div>
+      <div id="adminProducts" class="scroll-box"></div>
+      <div id="adminPrelovedProducts" class="scroll-box"></div>
+
+      <div class="section-head"><h3>Pengajuan & Pencairan Titip Jual (Komisi 10%)</h3></div>
+      <div id="adminPrelovedConsign" class="scroll-box"></div>
+    </section>
+
+    <!-- TAB 4: PENGATURAN TOKO, QRIS & KEAMANAN SANDI -->
+    <section class="admin-section" id="tabSettings">
+      <div class="two">
+        <div><label>Nama toko</label><input id="cfgStoreName"></div>
+        <div><label>Alamat toko</label><input id="cfgStoreAddress"></div>
+      </div>
+      <div class="two">
+        <div><label>No. WA Pesanan</label><input id="cfgStoreWa" inputmode="tel"></div>
+        <div><label>No. WA Bantuan</label><input id="cfgSupportWa" inputmode="tel"></div>
+      </div>
+      <div class="two">
+        <div><label>Upload QRIS Toko</label><input id="cfgQrisFile" type="file" accept="image/*" onchange="previewAdminQris(this)"></div>
+        <div style="text-align:center"><img id="adminQrisPreview" src="" alt="QRIS" style="width:76px;height:76px;object-fit:contain;border-radius:8px;border:1px solid var(--line)"></div>
+      </div>
+      <button class="primary" type="button" style="width:100%" onclick="saveSiteSettings()">Simpan pengaturan toko</button>
+      <div id="siteSettingsNotice" class="muted" style="margin-top:4px"></div>
+
+      <div class="section-head"><h3>Perbarui Sandi & Kode Pemulihan Admin Aktif</h3></div>
+      <div class="two">
+        <div><label>Sandi Baru</label><input id="updAdminPass" type="password" placeholder="Min. 6 karakter"></div>
+        <div><label>Kode Pemulihan Baru</label><input id="updAdminRecovery" placeholder="Contoh: PAGARALAM-2026"></div>
+      </div>
+      <button class="dark" type="button" style="width:100%" onclick="updateActiveAdminCredentials()">Simpan Sandi & Kode Pemulihan</button>
+      <div id="updAdminNotice" class="muted" style="margin-top:4px"></div>
+    </section>
+
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="outline" style="flex:1" onclick="hide('adminModal')">Tutup</button>
+      <button class="dark" style="flex:1" onclick="logoutAdmin()">🔒 Keluar Admin</button>
+    </div>
+  </div>
+</div></div>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script>
+const DEFAULT_STORE_WA='6282175367679';
+const DEFAULT_SUPPORT_WA='62895413165377';
+const DEFAULT_QRIS='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=QRIS-MAJUBERSAMA';
+const DEFAULT_ADMIN_HASH='240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'; // admin123
+const MARKETPLACE_COMMISSION_RATE=0.10; // Komisi 10% transaksi berhasil
+const STATUSES=['Menunggu konfirmasi','Pesanan dikonfirmasi','Sedang disiapkan','Sedang diantar','Pesanan selesai','Retur / Refund','Pesanan dibatalkan'];
+const JASTIP_STATUSES=['Menunggu verifikasi QRIS','Sedang dibelanjakan','Sedang diantar','Pesanan selesai','Retur / Refund','Pesanan dibatalkan'];
+const JASTIP_RATE_PER_KM=5000;
+const STORE_LOCATION={storeLat:-4.0196624,storeLng:103.2467507};
+
+const seed=[
+  {id:1,name:'Keripik Pisang Original 500g',price:25000,stock:12,cat:'Makanan',desc:'Keripik pisang renyah rasa original 500g.',img:'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=700'},
+  {id:2,name:'Kopi Dempo Robusta 250g',price:35000,stock:8,cat:'Minuman',desc:'Kopi robusta pilihan kawasan Dempo 250g.',img:'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=700'},
+  {id:3,name:'Teh Melati Premium',price:15000,stock:6,cat:'Minuman',desc:'Teh melati harum untuk dinikmati setiap hari.',img:'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=700'},
+  {id:4,name:'Beras Premium 5kg',price:75000,stock:20,cat:'Sembako',desc:'Beras pilihan kemasan 5 kg.',img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=700'}
+];
+const prelovedSeed=[
+  {id:101,name:'Kipas Angin Meja Bekas Layak Pakai',price:65000,stock:2,cat:'Elektronik',desc:'Barang bekas terawat, putaran normal, kabel aman.',img:'https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=700'},
+  {id:102,name:'Rak Buku Kayu Preloved',price:120000,stock:1,cat:'Perabot',desc:'Kondisi kokoh siap pakai, minus pemakaian wajar.',img:'https://images.unsplash.com/photo-1594620302200-9a762244a156?w=700'}
+];
+
+let siteSettings=JSON.parse(localStorage.getItem('mb_site_settings')||'null')||{
+  storeName:'MajuBersama',address:'Kota Pagaralam, Sumatera Selatan',
+  storeWa:DEFAULT_STORE_WA,supportWa:DEFAULT_SUPPORT_WA,qrisImg:DEFAULT_QRIS
+};
+let adminAccounts=JSON.parse(localStorage.getItem('mb_admin_accounts')||'null')||[{
+  username:'admin',name:'Administrator Utama',passHash:DEFAULT_ADMIN_HASH,
+  recoveryCode:'PAGARALAM-2026',question:'Kota asal MajuBersama?',answer:'pagaralam'
+}];
+let activeAdminUser=sessionStorage.getItem('mb_admin_user')||'';
+
+let products=JSON.parse(localStorage.getItem('tk_products')||'null')||seed;
+let prelovedProducts=JSON.parse(localStorage.getItem('tk_preloved_products')||'null')||prelovedSeed;
+let prelovedSubmissions=JSON.parse(localStorage.getItem('tk_preloved_submissions')||'[]');
+let storeCart=JSON.parse(localStorage.getItem('tk_cart')||'[]');
+let prelovedCart=JSON.parse(localStorage.getItem('tk_preloved_cart')||'[]');
+let orders=JSON.parse(localStorage.getItem('tk_orders')||'[]');
+let jastipOrders=JSON.parse(localStorage.getItem('mb_jastip_orders')||'[]');
+let partners=JSON.parse(localStorage.getItem('tk_partners')||'[]');
+let partnerProducts=JSON.parse(localStorage.getItem('tk_partner_products')||'[]');
+let payouts=JSON.parse(localStorage.getItem('mb_payouts')||'[]');
+let refundRequests=JSON.parse(localStorage.getItem('mb_refund_requests')||'[]');
+
+let partnerGps=null,currentPartner=null,draftQrisImg=null,jastipStoreGps=null;
+let activePage='store',category='Semua',prelovedCategory='Semua',gps=null;
+
+const money=n=>'Rp '+Number(n||0).toLocaleString('id-ID');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normalizePhone=v=>String(v||'').replace(/\D/g,'').replace(/^0/,'62');
+const getStoreWa=()=>normalizePhone(siteSettings.storeWa)||DEFAULT_STORE_WA;
+const getSupportWa=()=>normalizePhone(siteSettings.supportWa)||DEFAULT_SUPPORT_WA;
+const getQrisImage=()=>siteSettings.qrisImg||DEFAULT_QRIS;
+const calcTenPercentFee=amt=>Math.round(Math.max(0,Number(amt)||0)*MARKETPLACE_COMMISSION_RATE);
+const calcNetAfterTenPercent=amt=>Math.max(0,Math.round(Number(amt)||0)-calcTenPercentFee(amt));
+
+async function sha256Hex(text){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+const persist=()=>{
+  localStorage.setItem('mb_site_settings',JSON.stringify(siteSettings));
+  localStorage.setItem('mb_admin_accounts',JSON.stringify(adminAccounts));
+  localStorage.setItem('tk_products',JSON.stringify(products));
+  localStorage.setItem('tk_preloved_products',JSON.stringify(prelovedProducts));
+  localStorage.setItem('tk_preloved_submissions',JSON.stringify(prelovedSubmissions));
+  localStorage.setItem('tk_cart',JSON.stringify(storeCart));
+  localStorage.setItem('tk_preloved_cart',JSON.stringify(prelovedCart));
+  localStorage.setItem('tk_orders',JSON.stringify(orders));
+  localStorage.setItem('mb_jastip_orders',JSON.stringify(jastipOrders));
+  localStorage.setItem('tk_partners',JSON.stringify(partners));
+  localStorage.setItem('tk_partner_products',JSON.stringify(partnerProducts));
+  localStorage.setItem('mb_payouts',JSON.stringify(payouts));
+  localStorage.setItem('mb_refund_requests',JSON.stringify(refundRequests));
+};
+
+/* Pintu Masuk Admin: ?admin=masuk, ketuk logo 5x, atau Ctrl+Shift+A */
+let logoTapCount=0,logoTapTimer=null;
+document.getElementById('brandLogo').addEventListener('click',()=>{
+  logoTapCount++;clearTimeout(logoTapTimer);
+  logoTapTimer=setTimeout(()=>{logoTapCount=0;},1500);
+  if(logoTapCount>=5){logoTapCount=0;openAdmin();}
+});
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='a'){e.preventDefault();openAdmin();}
+});
+function checkSecretAdminUrl(){
+  const p=new URLSearchParams(window.location.search);
+  if(p.get('admin')==='masuk'||window.location.hash==='#admin'){
+    if(window.history.replaceState)window.history.replaceState({},document.title,window.location.pathname);
+    openAdmin();
+  }
+}
+
+function applyBranding(){
+  const sName=(siteSettings.storeName||'MajuBersama').trim();
+  const sAddr=(siteSettings.address||'Kota Pagaralam, Sumatera Selatan').trim();
+  const supWa=getSupportWa();
+  const qrisUrl=getQrisImage();
+  document.title=`${sName} Pagaralam`;
+  const mid=Math.ceil(sName.length/2);
+  document.querySelector('.logo').innerHTML=`${esc(sName.slice(0,mid))}<span>${esc(sName.slice(mid))}</span> <small>PAGARALAM</small>`;
+  document.querySelectorAll('.brand-name-label').forEach(el=>el.textContent=sName);
+  document.getElementById('siteFooter').innerHTML=`<b>${esc(sName)}</b> · ${esc(sAddr)} · Komisi Marketplace 10% · COD & QRIS`;
+  document.getElementById('contactInfoBox').innerHTML=`WhatsApp bantuan toko: <b>${esc(supWa)}</b> · Alamat: <b>${esc(sAddr)}</b>.`;
+  document.getElementById('qrisImage').src=qrisUrl;
+  document.getElementById('jastipQrisImage').src=qrisUrl;
+}
+
+/* Perhitungan Saldo, Komisi 10%, Penarikan & Refund */
+function getMarketplaceMetrics(){
+  const doneOrders=orders.filter(o=>o.status==='Pesanan selesai');
+  const doneJastip=jastipOrders.filter(j=>j.status==='Pesanan selesai');
+  const soldConsign=prelovedSubmissions.filter(x=>x.status==='Terjual');
+
+  const grossSales=doneOrders.reduce((s,o)=>s+Number(o.total||0),0)
+    +doneJastip.reduce((s,j)=>s+Number(j.total||0),0)
+    +soldConsign.reduce((s,x)=>s+(Number(x.price||0)*Number(x.stock||1)),0);
+
+  const commission10=doneOrders.reduce((s,o)=>s+calcTenPercentFee(o.total),0)
+    +doneJastip.reduce((s,j)=>s+calcTenPercentFee(j.total),0)
+    +soldConsign.reduce((s,x)=>s+calcTenPercentFee(Number(x.price||0)*Number(x.stock||1)),0);
+
+  const refundedTotal=refundRequests
+    .filter(r=>r.status==='Disetujui / Selesai')
+    .reduce((s,r)=>s+Number(r.amount||0),0);
+
+  const withdrawnGross=payouts
+    .filter(p=>p.status==='Dicairkan')
+    .reduce((s,p)=>s+Number(p.grossAmount||0),0);
+
+  const availableBalance=Math.max(0,grossSales-refundedTotal-withdrawnGross);
+  return {grossSales,commission10,refundedTotal,withdrawnGross,availableBalance};
+}
+
+function getPartnerBalance(partnerId){
+  const partnerDoneOrders=orders.filter(o=>o.status==='Pesanan selesai'&&Array.isArray(o.items)&&o.items.some(it=>it.partnerId===partnerId));
+  const grossPartner=partnerDoneOrders.reduce((s,o)=>s+o.items.filter(it=>it.partnerId===partnerId).reduce((a,b)=>a+(Number(b.price||0)*Number(b.qty||1)),0),0);
+  const netPartner=calcNetAfterTenPercent(grossPartner);
+  const withdrawnPartner=payouts.filter(p=>p.partnerId===partnerId&&p.status!=='Ditolak').reduce((s,p)=>s+Number(p.netAmount||0),0);
+  return {grossPartner,commission10:calcTenPercentFee(grossPartner),netPartner,withdrawnPartner,available:Math.max(0,netPartner-withdrawnPartner)};
+}
+
+function renderAdminFinanceSummary(){
+  const box=document.getElementById('adminFinanceSummary');
+  if(!box)return;
+  const m=getMarketplaceMetrics();
+  box.innerHTML=`
+    <div class="kpi-card highlight"><small>Saldo Tersedia</small><strong>${money(m.availableBalance)}</strong><small style="text-transform:none;letter-spacing:0">Kotor: ${money(m.grossSales)}</small></div>
+    <div class="kpi-card highlight"><small>Komisi Marketplace (10%)</small><strong>${money(m.commission10)}</strong><small style="text-transform:none;letter-spacing:0">Ditarik: ${money(m.withdrawnGross)}</small></div>
+    <div class="kpi-card"><small>Total Refund / Retur</small><strong>${money(m.refundedTotal)}</strong><small style="text-transform:none;letter-spacing:0">${refundRequests.length} pengajuan</small></div>
+  `;
+}
+
+/* Navigasi Tab Admin & Auth */
+function switchAdminAuthTab(tabId){
+  document.querySelectorAll('#adminAuthBox .admin-tab').forEach(b=>b.classList.toggle('active',b.dataset.atab===tabId));
+  document.querySelectorAll('#adminAuthBox .admin-section').forEach(s=>s.classList.toggle('active',s.id===tabId));
+}
+
+function switchAdminTab(tabId){
+  document.querySelectorAll('#adminPanel .admin-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tabId));
+  document.querySelectorAll('#adminPanel .admin-section').forEach(s=>s.classList.toggle('active',s.id===tabId));
+  renderAdminFinanceSummary();
+}
+
+function openAdmin(){
+  if(sessionStorage.getItem('mb_admin_auth')==='1' && activeAdminUser){
+    showAdminDashboard();
+  }else{
+    document.getElementById('adminAuthBox').style.display='block';
+    document.getElementById('adminPanel').style.display='none';
+    document.getElementById('adminPass').value='';
+    switchAdminAuthTab('aTabLogin');
+  }
+  show('adminModal');
+}
+
+function showAdminDashboard(){
+  document.getElementById('adminAuthBox').style.display='none';
+  document.getElementById('adminPanel').style.display='block';
+  loadSettingsInputs();
+  renderAdminFinanceSummary();
+  renderAdmin();
+}
+
+async function loginAdminAccount(e){
+  e.preventDefault();
+  const user=document.getElementById('adminLoginUser').value.trim().toLowerCase();
+  const pass=document.getElementById('adminPass').value;
+  const hash=await sha256Hex(pass);
+  const acc=adminAccounts.find(a=>a.username.toLowerCase()===user && a.passHash===hash);
+  if(!acc)return alert('Username/email atau sandi admin tidak cocok.');
+  activeAdminUser=acc.username;
+  sessionStorage.setItem('mb_admin_auth','1');
+  sessionStorage.setItem('mb_admin_user',acc.username);
+  showAdminDashboard();
+  toast('Selamat datang, '+acc.name);
+}
+
+async function registerAdminAccount(e){
+  e.preventDefault();
+  const username=document.getElementById('regAdminUser').value.trim().toLowerCase();
+  const name=document.getElementById('regAdminName').value.trim();
+  const pass=document.getElementById('regAdminPass').value;
+  const recoveryCode=document.getElementById('regAdminRecoveryCode').value.trim();
+  const question=document.getElementById('regAdminQuestion').value.trim();
+  const answer=document.getElementById('regAdminAnswer').value.trim().toLowerCase();
+  if(pass.length<6)return alert('Sandi minimal 6 karakter.');
+  if(adminAccounts.some(a=>a.username.toLowerCase()===username))return alert('Username / email admin sudah terdaftar.');
+  adminAccounts.push({
+    username,name,passHash:await sha256Hex(pass),
+    recoveryCode,question,answer
+  });
+  persist();
+  e.target.reset();
+  document.getElementById('adminRegNotice').innerHTML=`<span style="color:var(--green);font-weight:700">✓ Akun admin "${esc(username)}" terdaftar. Silakan login.</span>`;
+  switchAdminAuthTab('aTabLogin');
+  document.getElementById('adminLoginUser').value=username;
+}
+
+async function recoverAdminPassword(e){
+  e.preventDefault();
+  const user=document.getElementById('recAdminUser').value.trim().toLowerCase();
+  const code=document.getElementById('recAdminCode').value.trim();
+  const ans=document.getElementById('recAdminAnswer').value.trim().toLowerCase();
+  const newPass=document.getElementById('recAdminNewPass').value;
+  if(newPass.length<6)return alert('Sandi baru minimal 6 karakter.');
+  const acc=adminAccounts.find(a=>a.username.toLowerCase()===user);
+  if(!acc)return alert('Akun admin tidak ditemukan.');
+  const codeMatch=code && acc.recoveryCode && code===acc.recoveryCode;
+  const ansMatch=ans && acc.answer && ans===acc.answer.toLowerCase();
+  if(!codeMatch && !ansMatch)return alert('Kode pemulihan atau jawaban keamanan salah.');
+  acc.passHash=await sha256Hex(newPass);
+  persist();
+  e.target.reset();
+  document.getElementById('adminRecoverNotice').innerHTML=`<span style="color:var(--green);font-weight:700">✓ Sandi untuk "${esc(acc.username)}" berhasil direset. Silakan login.</span>`;
+  switchAdminAuthTab('aTabLogin');
+  document.getElementById('adminLoginUser').value=acc.username;
+}
+
+async function updateActiveAdminCredentials(){
+  const newPass=document.getElementById('updAdminPass').value;
+  const newRec=document.getElementById('updAdminRecovery').value.trim();
+  const acc=adminAccounts.find(a=>a.username===activeAdminUser)||adminAccounts[0];
+  if(!acc)return;
+  if(newPass){
+    if(newPass.length<6)return alert('Sandi baru minimal 6 karakter.');
+    acc.passHash=await sha256Hex(newPass);
+  }
+  if(newRec)acc.recoveryCode=newRec;
+  persist();
+  document.getElementById('updAdminPass').value='';
+  document.getElementById('updAdminRecovery').value='';
+  document.getElementById('updAdminNotice').textContent='Kredensial & kode pemulihan admin tersimpan.';
+  toast('Sandi / kode pemulihan diperbarui');
+}
+
+function logoutAdmin(){
+  sessionStorage.removeItem('mb_admin_auth');
+  sessionStorage.removeItem('mb_admin_user');
+  activeAdminUser='';
+  document.getElementById('adminPanel').style.display='none';
+  document.getElementById('adminAuthBox').style.display='block';
+  hide('adminModal');
+  toast('Keluar dari Panel Admin');
+}
+
+/* Portal Mitra: Registrasi, Login, Tarik Saldo & Tambah Produk */
+function openPartnerPortal(){
+  if(currentPartner){
+    const refreshed=partners.find(p=>p.id===currentPartner.id);
+    if(refreshed)currentPartner=refreshed;
+    renderPartnerDashboard();
+  }else{
+    document.getElementById('partnerLoginBox').style.display='block';
+    document.getElementById('partnerDashboard').style.display='none';
+  }
+  show('partnerModal');
+}
+
+function switchPartnerTab(tabId){
+  document.querySelectorAll('#partnerModal .admin-tab').forEach(b=>b.classList.toggle('active',b.dataset.ptab===tabId));
+  document.querySelectorAll('#partnerModal .admin-section').forEach(s=>s.classList.toggle('active',s.id===tabId));
+}
+
+function getPartnerGPS(){
+  const lbl=document.getElementById('partnerGpsLabel');
+  if(!navigator.geolocation){lbl.textContent='Browser tidak mendukung GPS.';return;}
+  lbl.textContent='Mengambil lokasi toko...';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    partnerGps={lat:pos.coords.latitude,lng:pos.coords.longitude};
+    lbl.textContent=`GPS OK (${partnerGps.lat.toFixed(5)}, ${partnerGps.lng.toFixed(5)})`;
+  },()=>{lbl.textContent='Gagal ambil GPS. Izinkan lokasi.';},{enableHighAccuracy:true,timeout:12000});
+}
+
+async function submitPartner(e){
+  e.preventDefault();
+  if(!partnerGps)return alert('Ambil GPS lokasi toko terlebih dahulu.');
+  const phone=document.getElementById('partnerPhone').value.trim();
+  const phoneKey=normalizePhone(phone);
+  const email=document.getElementById('partnerEmail').value.trim().toLowerCase();
+  const pass=document.getElementById('partnerPass').value;
+  if(pass.length<6)return alert('Sandi mitra minimal 6 karakter.');
+  if(partners.some(p=>p.phoneKey===phoneKey||(email&&p.email===email)))return alert('No. WA atau email mitra sudah terdaftar.');
+
+  const data={
+    id:'MIT-'+Date.now().toString().slice(-6),
+    store:document.getElementById('partnerStore').value.trim(),
+    name:document.getElementById('partnerName').value.trim(),
+    phone,phoneKey,email,
+    passHash:await sha256Hex(pass),
+    bankAcc:document.getElementById('partnerBankAcc').value.trim(),
+    address:document.getElementById('partnerAddress').value.trim(),
+    gps:partnerGps,
+    status:'Pending',
+    created:new Date().toISOString()
+  };
+  partners.push(data);
+  persist();
+  partnerGps=null;
+  document.getElementById('partnerGpsLabel').textContent='Wajib ambil GPS lokasi toko.';
+  e.target.reset();
+  document.getElementById('partnerRegisterResult').innerHTML=`<div class="status"><b>Registrasi Mitra Berhasil (${esc(data.id)})</b><p>Status: <b>Pending</b>. Anda sudah bisa login mitra; penambahan produk tampil setelah disetujui admin.</p></div>`;
+  switchPartnerTab('pTabLogin');
+  document.getElementById('partnerLoginId').value=phone;
+}
+
+async function loginPartnerAccount(e){
+  e.preventDefault();
+  const rawId=document.getElementById('partnerLoginId').value.trim();
+  const key=normalizePhone(rawId);
+  const lower=rawId.toLowerCase();
+  const hash=await sha256Hex(document.getElementById('partnerLoginPass').value);
+  const p=partners.find(x=>((key&&x.phoneKey===key)||(x.email&&x.email===lower)) && x.passHash===hash);
+  if(!p)return alert('Akun atau sandi mitra tidak sesuai.');
+  currentPartner=p;
+  document.getElementById('partnerLoginPass').value='';
+  renderPartnerDashboard();
+}
+
+function logoutPartner(){
+  currentPartner=null;
+  document.getElementById('partnerDashboard').style.display='none';
+  document.getElementById('partnerLoginBox').style.display='block';
+  toast('Keluar dari akun mitra');
+}
+
+function renderPartnerDashboard(){
+  if(!currentPartner)return;
+  document.getElementById('partnerLoginBox').style.display='none';
+  document.getElementById('partnerDashboard').style.display='block';
+  const bal=getPartnerBalance(currentPartner.id);
+  document.getElementById('partnerProfileCard').innerHTML=`<b>${esc(currentPartner.store)}</b> · Mitra: ${esc(currentPartner.name)} · Status: <b>${esc(currentPartner.status)}</b><br><small class="muted">Rekening: ${esc(currentPartner.bankAcc)} · Komisi marketplace: 10%</small>`;
+  document.getElementById('partnerKpiGrid').innerHTML=`
+    <div class="kpi-card highlight"><small>Saldo Tersedia Mitra</small><strong>${money(bal.available)}</strong></div>
+    <div class="kpi-card"><small>Komisi 10% Terpotong</small><strong>${money(bal.commission10)}</strong></div>
+    <div class="kpi-card"><small>Sudah Ditarik</small><strong>${money(bal.withdrawnPartner)}</strong></div>
+  `;
+  if(!document.getElementById('pWithdrawDest').value)document.getElementById('pWithdrawDest').value=currentPartner.bankAcc||'';
+
+  const myPayouts=payouts.filter(x=>x.partnerId===currentPartner.id);
+  document.getElementById('partnerWithdrawHistory').innerHTML=myPayouts.map(w=>`<div class="admin-row"><div class="grow"><b>${money(w.netAmount)}</b> <span class="badge-ok">${esc(w.status)}</span><small>Kotor: ${money(w.grossAmount)} · Komisi 10%: ${money(w.fee10)} · ${esc(w.account)}</small></div></div>`).join('')||'<p class="muted">Belum ada penarikan saldo mitra.</p>';
+
+  const myProds=partnerProducts.filter(x=>x.partnerId===currentPartner.id);
+  document.getElementById('partnerMyProducts').innerHTML=myProds.map(x=>`<div class="admin-row"><img src="${esc(x.img)}"><div class="grow"><b>${esc(x.name)}</b><small>${money(x.price)} · Stok ${x.stock} · Status: <b>${esc(x.status)}</b></small></div></div>`).join('')||'<p class="muted">Belum ada barang kiriman mitra.</p>';
+}
+
+function requestPartnerWithdraw(e){
+  e.preventDefault();
+  if(!currentPartner)return;
+  const bal=getPartnerBalance(currentPartner.id);
+  const gross=+document.getElementById('pWithdrawAmount').value;
+  const account=document.getElementById('pWithdrawDest').value.trim();
+  const net=calcNetAfterTenPercent(gross);
+  if(gross<=0||gross>bal.available)return alert('Nominal melebihi saldo tersedia mitra ('+money(bal.available)+').');
+  payouts.unshift({
+    id:'WD-'+Date.now().toString().slice(-6),
+    partnerId:currentPartner.id,
+    module:'Penjualan Toko / Mitra',
+    recipient:currentPartner.store+' ('+currentPartner.name+')',
+    grossAmount:gross,
+    fee10:calcTenPercentFee(gross),
+    netAmount:net,
+    account,
+    status:'Menunggu pencairan',
+    created:new Date().toISOString()
+  });
+  persist();
+  document.getElementById('pWithdrawAmount').value='';
+  renderPartnerDashboard();
+  renderAdmin();
+  toast('Pengajuan penarikan saldo mitra terkirim');
+}
+
+async function submitPartnerProduct(e){
+  e.preventDefault();
+  if(!currentPartner)return alert('Silakan login mitra dahulu.');
+  if(currentPartner.status!=='Disetujui')return alert('Akun mitra masih menunggu persetujuan admin.');
+  const f=document.getElementById('ppImage').files?.[0];
+  if(!f)return alert('Pilih foto barang.');
+  const item={
+    id:'PM-'+Date.now(),partnerId:currentPartner.id,store:currentPartner.store,
+    name:document.getElementById('ppName').value.trim(),
+    price:+document.getElementById('ppPrice').value,
+    stock:+document.getElementById('ppStock').value,
+    cat:document.getElementById('ppCat').value,
+    desc:document.getElementById('ppDesc').value.trim(),
+    img:await readImage(f),
+    status:'Menunggu persetujuan admin',
+    created:new Date().toISOString()
+  };
+  partnerProducts.unshift(item);
+  persist();
+  e.target.reset();
+  document.getElementById('partnerProductNotice').innerHTML='<div class="status">Barang mitra terkirim dan menunggu persetujuan admin.</div>';
+  renderPartnerDashboard();
+  renderAdmin();
+}
+
+function setPartnerStatus(id,status){
+  const p=partners.find(x=>x.id===id);if(!p)return;
+  p.status=status;persist();renderAdmin();
+  if(currentPartner&&currentPartner.id===id){currentPartner=p;renderPartnerDashboard();}
+}
+
+function approvePartnerProduct(id){
+  const item=partnerProducts.find(x=>x.id===id);if(!item)return;
+  products.push({id:Date.now(),name:item.name,price:item.price,stock:item.stock,cat:item.cat,desc:item.desc,img:item.img,partnerId:item.partnerId,partnerStore:item.store});
+  item.status='Disetujui & tampil';
+  persist();render();renderAdmin();
+  if(currentPartner)renderPartnerDashboard();
+}
+
+function rejectPartnerProduct(id){
+  const item=partnerProducts.find(x=>x.id===id);if(!item)return;
+  item.status='Ditolak';persist();renderAdmin();
+}
+
+/* Penarikan Saldo Admin & Refund / Retur */
+function createAdminPayout(e){
+  e.preventDefault();
+  const moduleName=document.getElementById('payoutModule').value;
+  const recipient=document.getElementById('payoutRecipient').value.trim();
+  const grossAmount=+document.getElementById('payoutGrossAmount').value;
+  const account=document.getElementById('payoutAccount').value.trim();
+  if(grossAmount<=0)return alert('Masukkan nominal valid.');
+  const fee10=calcTenPercentFee(grossAmount);
+  const netAmount=grossAmount-fee10;
+  payouts.unshift({
+    id:'WD-'+Date.now().toString().slice(-6),
+    module:moduleName,recipient,grossAmount,fee10,netAmount,account,
+    status:'Dicairkan',created:new Date().toISOString()
+  });
+  persist();
+  e.target.reset();
+  renderAdminFinanceSummary();
+  renderAdmin();
+  toast('Penarikan saldo dicatat (Komisi 10%: '+money(fee10)+')');
+}
+
+function setPayoutStatus(id,status){
+  const w=payouts.find(x=>x.id===id);if(!w)return;
+  w.status=status;persist();renderAdminFinanceSummary();renderAdmin();
+  if(currentPartner)renderPartnerDashboard();
+}
+
+function submitOrderRefund(orderId,isJastip=false){
+  const reasonEl=document.getElementById('refundReason_'+orderId);
+  const typeEl=document.getElementById('refundType_'+orderId);
+  const reason=(reasonEl?.value||'').trim();
+  const refundType=typeEl?.value||'Refund Dana';
+  if(!reason)return alert('Tuliskan alasan refund atau retur.');
+  const target=isJastip?jastipOrders.find(x=>x.id===orderId):orders.find(x=>x.id===orderId);
+  if(!target)return;
+  const existing=refundRequests.find(r=>r.orderId===orderId&&r.status==='Menunggu proses');
+  if(existing)return alert('Pengajuan refund/retur untuk pesanan ini sudah masuk.');
+  refundRequests.unshift({
+    id:'RF-'+Date.now().toString().slice(-6),
+    orderId,isJastip,
+    source:isJastip?'Jastip':(target.source||'Toko'),
+    type:refundType,
+    amount:Number(target.total||0),
+    reason,
+    status:'Menunggu proses',
+    created:new Date().toISOString()
+  });
+  persist();
+  renderAdminFinanceSummary();
+  renderAdmin();
+  trackOrder();
+  toast('Pengajuan '+refundType+' terkirim');
+}
+
+function processRefundRequest(refundId,approve,restoreStock=true){
+  const r=refundRequests.find(x=>x.id===refundId);if(!r)return;
+  if(!approve){
+    r.status='Ditolak';
+    persist();renderAdminFinanceSummary();renderAdmin();trackOrder();return;
+  }
+  r.status='Disetujui / Selesai';
+  if(r.isJastip){
+    const j=jastipOrders.find(x=>x.id===r.orderId);
+    if(j)j.status='Retur / Refund';
+  }else{
+    const o=orders.find(x=>x.id===r.orderId);
+    if(o){
+      o.status='Retur / Refund';
+      if(restoreStock && Array.isArray(o.items)){
+        o.items.forEach(it=>{
+          const cat=it.source==='preloved'?prelovedProducts:products;
+          const p=cat.find(prod=>prod.id===it.id);
+          if(p)p.stock=Number(p.stock||0)+Number(it.qty||1);
+        });
+      }
+    }
+  }
+  persist();render();renderAdminFinanceSummary();renderAdmin();trackOrder();
+  toast('Refund / Retur diproses');
+}
+
+/* Katalog, Titip Jual, Jastip & Checkout */
+function getCatalog(src=activePage){return src==='preloved'?prelovedProducts:products;}
+function getCart(src=activePage){return src==='preloved'?prelovedCart:storeCart;}
+function setCart(list,src=activePage){if(src==='preloved')prelovedCart=list;else storeCart=list;}
+
+function switchPage(page){
+  activePage=page;
+  document.getElementById('pageStore').style.display=page==='store'?'block':'none';
+  document.getElementById('pagePreloved').style.display=page==='preloved'?'block':'none';
+  document.getElementById('navStore').classList.toggle('active-page',page==='store');
+  document.getElementById('navPreloved').classList.toggle('active-page',page==='preloved');
+  if(page==='preloved')updateConsignPreview();
+  render();window.scrollTo({top:0,behavior:'smooth'});
+}
+function openPrelovedConsign(){switchPage('preloved');setTimeout(()=>document.getElementById('titipJualSection')?.scrollIntoView({behavior:'smooth'}),80);}
+
+function updateConsignPreview(){
+  const price=+document.getElementById('consignPrice')?.value||0;
+  const stock=Math.max(1,+document.getElementById('consignStock')?.value||1);
+  const box=document.getElementById('consignFeePreview');
+  if(!box)return;
+  const gross=price*stock,fee=calcTenPercentFee(gross),net=gross-fee;
+  box.innerHTML=`<b>Simulasi bagi hasil (Komisi 10%):</b> Nilai jual: <b>${money(gross)}</b> · Komisi 10%: <b>${money(fee)}</b> · Bersih pemilik (90%): <b>${money(net)}</b>`;
+}
+
+document.getElementById('consignImage').addEventListener('change',e=>{
+  const f=e.target.files?.[0],box=document.getElementById('consignPhotoPreview');
+  if(!f){box.textContent='';return;}
+  if(f.size>8*1024*1024){e.target.value='';box.textContent='Maksimal 8 MB.';return;}
+  box.textContent='Foto: '+f.name;
+});
+
+async function submitPrelovedConsign(e){
+  e.preventDefault();
+  const f=document.getElementById('consignImage').files?.[0];
+  if(!f)return alert('Pilih foto barang bekas.');
+  const owner=document.getElementById('consignOwner').value.trim();
+  const phone=document.getElementById('consignPhone').value.trim();
+  const payoutAcc=document.getElementById('consignPayoutAcc').value.trim();
+  const address=document.getElementById('consignAddress').value.trim();
+  const name=document.getElementById('consignName').value.trim();
+  const price=+document.getElementById('consignPrice').value;
+  const stock=Math.max(1,+document.getElementById('consignStock').value||1);
+  const cat=document.getElementById('consignCat').value;
+  const condition=document.getElementById('consignCondition').value;
+  const rawDesc=document.getElementById('consignDesc').value.trim();
+  const gross=price*stock,fee10=calcTenPercentFee(gross),netOwner=gross-fee10;
+
+  const sub={
+    id:'TJ-'+Date.now().toString().slice(-7),
+    owner,phone,phoneKey:normalizePhone(phone),payoutAcc,address,name,price,stock,cat,condition,
+    desc:`Kondisi: ${condition}${rawDesc?'\n'+rawDesc:''}\nPemilik: ${owner}`,
+    gross,fee10,netOwner,payoutStatus:'Belum terjual',
+    img:await readImage(f),status:'Menunggu persetujuan admin',created:new Date().toISOString()
+  };
+  prelovedSubmissions.unshift(sub);persist();
+  document.getElementById('consignCheckPhone').value=phone;
+  document.getElementById('consignNotice').innerHTML=`<div class="status"><b>${esc(sub.id)} tersimpan</b> · Komisi 10%: <b>${money(fee10)}</b> · Bersih pemilik: <b>${money(netOwner)}</b></div>`;
+  checkPrelovedConsign();
+  if(document.getElementById('consignSendWa').checked){
+    const msg=`Titip Jual Preloved (${sub.id})\nBarang: ${name} (${money(price)} × ${stock})\nKomisi 10%: ${money(fee10)} · Bersih pemilik: ${money(netOwner)}\nPemilik: ${owner} (${phone}) · Rek: ${payoutAcc}`;
+    window.open(`https://wa.me/${getSupportWa()}?text=${encodeURIComponent(msg)}`,'_blank');
+  }
+  e.target.reset();document.getElementById('consignStock').value='1';document.getElementById('consignPhotoPreview').textContent='';
+  updateConsignPreview();renderAdmin();
+}
+
+function checkPrelovedConsign(){
+  const key=normalizePhone(document.getElementById('consignCheckPhone').value);
+  const out=document.getElementById('consignStatusResult');
+  const list=prelovedSubmissions.filter(x=>x.phoneKey===key);
+  out.innerHTML=list.length?list.map(m=>`<div class="admin-row" style="background:#fff;border:1px solid var(--line)"><img src="${esc(m.img)}"><div class="grow"><b>${esc(m.name)}</b> (${esc(m.id)})<small>Komisi 10%: ${money(m.fee10)} · Bersih: <b>${money(m.netOwner)}</b> · Rek: ${esc(m.payoutAcc||'-')}</small><small>Status: <b>${esc(m.status)}</b> · Pencairan: <b>${esc(m.payoutStatus)}</b></small></div></div>`).join(''):'<p class="muted">Belum ada data titip jual untuk nomor WA ini.</p>';
+}
+
+function approvePrelovedConsign(id){
+  const item=prelovedSubmissions.find(x=>x.id===id);if(!item)return;
+  prelovedProducts.push({id:Date.now(),name:item.name,price:item.price,stock:item.stock,cat:item.cat,desc:item.desc,img:item.img,consignId:item.id,ownerName:item.owner});
+  item.status='Disetujui & tampil di Preloved';
+  persist();render();renderAdmin();
+}
+
+function setPrelovedConsignStatus(id,status){
+  const item=prelovedSubmissions.find(x=>x.id===id);if(!item)return;
+  item.status=status;
+  if(status==='Terjual'&&item.payoutStatus==='Belum terjual')item.payoutStatus='Menunggu pencairan';
+  persist();renderAdminFinanceSummary();renderAdmin();
+}
+
+function setPrelovedPayoutStatus(id,payoutStatus){
+  const item=prelovedSubmissions.find(x=>x.id===id);if(!item)return;
+  item.payoutStatus=payoutStatus;
+  if(payoutStatus==='Sudah dicairkan'&&item.status!=='Terjual')item.status='Terjual';
+  persist();renderAdminFinanceSummary();renderAdmin();
+}
+
+function renderCatalogGrid({items,categoryValue,filterId,gridId,source,onSelectCat}){
+  const cats=['Semua',...new Set(items.map(p=>p.cat))];
+  document.getElementById(filterId).innerHTML=cats.map(c=>`<button class="chip ${categoryValue===c?'active':''}" onclick="${onSelectCat}('${esc(c)}')">${esc(c)}</button>`).join('');
+  const shown=items.filter(p=>categoryValue==='Semua'||p.cat===categoryValue);
+  const isPreloved=source==='preloved';
+  document.getElementById(gridId).innerHTML=shown.length?shown.map(p=>`<article class="product" onclick="showDetail(${p.id},false,'${source}')">
+    <img src="${esc(p.img)}" alt="${esc(p.name)}">
+    <div class="pbody">
+      ${isPreloved?'<span class="badge-preloved">PRELOVED</span>':(p.partnerStore?`<span class="badge-ok">${esc(p.partnerStore)}</span>`:'')}
+      <div class="muted">${esc(p.cat)}</div>
+      <b>${esc(p.name)}</b>
+      <div class="price">${money(p.price)}</div>
+      <div class="stock">${p.stock>0?'Stok: '+p.stock:'STOK HABIS'}</div>
+      <div class="actions">
+        <button onclick="event.stopPropagation();askStock(${p.id},'${source}')">Tanya</button>
+        <button class="dark" ${p.stock<1?'disabled':''} onclick="event.stopPropagation();showDetail(${p.id},true,'${source}')">Beli</button>
+        <button class="primary" ${p.stock<1?'disabled':''} onclick="event.stopPropagation();addCart(${p.id},'${source}')">+ Keranjang</button>
+      </div>
+    </div>
+  </article>`).join(''):'<div class="empty">Belum ada produk pada kategori ini.</div>';
+}
+
+function render(){
+  renderCatalogGrid({items:products,categoryValue:category,filterId:'filters',gridId:'products',source:'store',onSelectCat:'setCategory'});
+  renderCatalogGrid({items:prelovedProducts,categoryValue:prelovedCategory,filterId:'prelovedFilters',gridId:'prelovedProducts',source:'preloved',onSelectCat:'setPrelovedCategory'});
+  document.getElementById('count').textContent=getCart(activePage).reduce((n,c)=>n+c.qty,0);
+}
+function setCategory(c){category=c;render()}
+function setPrelovedCategory(c){prelovedCategory=c;render()}
+
+function showDetail(id,buyNow=false,source=activePage){
+  const p=getCatalog(source).find(x=>x.id===id);if(!p)return;
+  document.getElementById('detailContent').innerHTML=`<img src="${esc(p.img)}">
+    <p class="muted" style="margin:6px 0 2px">${esc(p.cat)}${p.partnerStore?' · Mitra: '+esc(p.partnerStore):''}</p>
+    <h2>${esc(p.name)}</h2>
+    <div class="price">${money(p.price)}</div>
+    <p style="white-space:pre-line;font-size:13.5px">${esc(p.desc||'')}</p>
+    <p class="stock">Stok tersedia: ${p.stock}</p>
+    <button class="primary" style="width:100%" ${p.stock<1?'disabled':''} onclick="addCart(${p.id},'${source}');hide('detailModal');${buyNow?`openCart('${source}')`:''}">${buyNow?'Beli Sekarang · Checkout':'+ Tambah ke Keranjang'}</button>`;
+  show('detailModal');
+}
+
+function addCart(id,source=activePage){
+  const p=getCatalog(source).find(x=>x.id===id);
+  if(!p||p.stock<1)return alert('Stok habis.');
+  const cart=getCart(source);
+  const ex=cart.find(x=>x.id===id);
+  if(ex){if(ex.qty>=p.stock)return alert('Melebihi stok.');ex.qty++;}
+  else cart.push({id,qty:1,unitPrice:p.price,img:p.img,source});
+  persist();render();
+  if(document.getElementById('cartModal').classList.contains('show'))renderCart();
+  toast(p.name+' ditambahkan');
+}
+
+function toast(msg){const el=document.getElementById('toast');el.textContent='✓ '+msg;el.classList.add('show');clearTimeout(window.__t);window.__t=setTimeout(()=>el.classList.remove('show'),2200);}
+function askStock(id,source=activePage){const p=getCatalog(source).find(x=>x.id===id);window.open(`https://wa.me/${getStoreWa()}?text=${encodeURIComponent('Halo '+siteSettings.storeName+', tanya stok '+p.name)}`,'_blank');}
+function show(id){document.getElementById(id).classList.add('show')}
+function hide(id){document.getElementById(id).classList.remove('show')}
+
+function openCart(source=activePage){
+  if(source!==activePage)switchPage(source);
+  document.getElementById('checkoutTitle').textContent=activePage==='preloved'?'Checkout Barang Preloved':'Checkout Pesanan Toko';
+  document.getElementById('qrisImage').src=getQrisImage();
+  toggleCheckoutQris();renderCart();show('cartModal');
+}
+function toggleCheckoutQris(){document.getElementById('qrisArea').style.display=document.getElementById('paymentMethodSelect').value==='QRIS'?'block':'none';}
+function distanceKm(a,b){const rad=x=>x*Math.PI/180,R=6371,dLat=rad(b.lat-a.lat),dLng=rad(b.lng-a.lng),q=Math.sin(dLat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLng/2)**2;return 2*R*Math.asin(Math.sqrt(q))}
+function deliveryQuote(){
+  if(!gps)return null;
+  const km=distanceKm(gps,{lat:STORE_LOCATION.storeLat,lng:STORE_LOCATION.storeLng});
+  const billableKm=Math.max(1,Math.ceil(km));
+  return {km,billableKm,fee:billableKm*2000,eta:20+Math.ceil(km*4)};
+}
+
+function renderCart(){
+  const cat=getCatalog(activePage),cart=getCart(activePage);
+  let subtotal=0;
+  document.getElementById('cartItems').innerHTML=cart.length?cart.map((c,i)=>{
+    const p=cat.find(x=>x.id===c.id);if(!p)return '';
+    subtotal+=p.price*c.qty;
+    return `<div class="item"><img src="${esc(p.img)}"><div class="grow"><b>${esc(p.name)}</b><div class="muted">${money(p.price)} × ${c.qty}</div></div><button onclick="changeQty(${i},-1)">−</button><button onclick="changeQty(${i},1)">+</button><button onclick="removeCart(${i})">×</button></div>`;
+  }).join(''):'<p class="muted">Keranjang masih kosong.</p>';
+  const q=deliveryQuote(),fee=q?q.fee:0;
+  document.getElementById('cartTotal').innerHTML=`Subtotal: ${money(subtotal)} · Ongkir: ${q?money(fee):'Ambil GPS'}<br><b>Total: ${money(subtotal+fee)}</b>`;
+  document.getElementById('totalQRIS').textContent=money(subtotal+fee);
+}
+
+function changeQty(i,d){
+  const cat=getCatalog(activePage),cart=getCart(activePage),c=cart[i],p=cat.find(x=>x.id===c?.id);
+  if(!c||!p)return;
+  if(d>0&&c.qty>=p.stock)return alert('Stok tidak cukup.');
+  c.qty+=d;if(c.qty<=0)cart.splice(i,1);
+  persist();render();renderCart();
+}
+function removeCart(i){getCart(activePage).splice(i,1);persist();render();renderCart();}
+
+function getGPS(){
+  if(!navigator.geolocation)return alert('GPS tidak didukung.');
+  document.getElementById('gpsLabel').textContent='Mencari lokasi...';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    gps={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:Math.round(pos.coords.accuracy)};
+    document.getElementById('gpsLabel').textContent=`GPS didapat (±${gps.accuracy}m)`;
+    renderCart();
+  },()=>{document.getElementById('gpsLabel').textContent='Gagal ambil GPS.';},{enableHighAccuracy:true,timeout:12000});
+}
+
+function placeOrder(){
+  const cat=getCatalog(activePage),cart=getCart(activePage);
+  const name=document.getElementById('buyerName').value.trim();
+  const phone=document.getElementById('buyerPhone').value.trim();
+  const district=document.getElementById('district').value;
+  const address=document.getElementById('buyerAddress').value.trim();
+  const payment=document.getElementById('paymentMethodSelect').value;
+  if(!cart.length)return alert('Keranjang kosong.');
+  if(!name||!phone||!district||!address)return alert('Lengkapi data penerima.');
+  if(!gps)return alert('Ambil GPS pelanggan terlebih dahulu.');
+
+  const lines=cart.map(c=>{const p=cat.find(x=>x.id===c.id);return {id:p.id,name:p.name,price:p.price,qty:c.qty,source:activePage,partnerId:p.partnerId||'',consignId:p.consignId||''};});
+  const subtotal=lines.reduce((s,x)=>s+x.price*x.qty,0),q=deliveryQuote(),total=subtotal+q.fee;
+  const id='MB-'+Date.now().toString().slice(-7);
+  const order={id,source:activePage,created:new Date().toISOString(),name,phone,district,address,payment,items:lines,subtotal,shippingFee:q.fee,distanceKm:q.km,billableKm:q.billableKm,etaMinutes:q.eta,total,status:'Menunggu konfirmasi',gps};
+  orders.unshift(order);
+  lines.forEach(x=>{
+    const p=cat.find(item=>item.id===x.id);
+    if(p)p.stock=Math.max(0,p.stock-x.qty);
+    if(x.consignId){const s=prelovedSubmissions.find(sub=>sub.id===x.consignId);if(s&&s.status!=='Terjual')s.status='Ada pesanan masuk';}
+  });
+  setCart([],activePage);persist();render();hide('cartModal');
+  document.getElementById('trackId').value=id;trackOrder();
+  window.open(`https://wa.me/${getStoreWa()}?text=${encodeURIComponent(`Pesanan ${id} (${name}) Total ${money(total)} via ${payment}`)}`,'_blank');
+  alert('Pesanan '+id+' dibuat.');
+}
+
+/* Jastip QRIS */
+function openJastipModal(){document.getElementById('jastipQrisImage').src=getQrisImage();updateJastipSummary();show('jastipModal');}
+function closeJastipModal(){hide('jastipModal');}
+function downloadQrisImage(){const a=document.createElement('a');a.href=getQrisImage();a.download='qris-majubersama.png';a.target='_blank';document.body.appendChild(a);a.click();a.remove();}
+function openQrisInPaymentApp(){const q=getJastipQuote();if(getQrisImage().startsWith('http'))window.open(getQrisImage(),'_blank','noopener');toast('Tagihan QRIS: '+money(q.total));}
+function getJastipGPS(){
+  const lbl=document.getElementById('jastipGpsLabel');
+  if(!navigator.geolocation)return;
+  lbl.textContent='Mengambil GPS toko...';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    jastipStoreGps={lat:pos.coords.latitude,lng:pos.coords.longitude};
+    const km=distanceKm(jastipStoreGps,{lat:STORE_LOCATION.storeLat,lng:STORE_LOCATION.storeLng});
+    lbl.textContent=`GPS toko (${km.toFixed(2)} km)`;
+    updateJastipSummary();
+  },()=>{lbl.textContent='Gagal ambil GPS toko.';},{enableHighAccuracy:true,timeout:12000});
+}
+function getJastipQuote(){
+  const itemPrice=Math.max(0,Number(document.getElementById('jastipItemPrice')?.value||0));
+  if(!jastipStoreGps)return {itemPrice,km:null,billableKm:0,jastipFee:0,commission10:calcTenPercentFee(itemPrice),total:itemPrice+calcTenPercentFee(itemPrice),ready:false};
+  const km=distanceKm(jastipStoreGps,{lat:STORE_LOCATION.storeLat,lng:STORE_LOCATION.storeLng});
+  const billableKm=Math.max(1,Math.ceil(km));
+  const jastipFee=billableKm*JASTIP_RATE_PER_KM;
+  const commission10=calcTenPercentFee(itemPrice+jastipFee);
+  return {itemPrice,km,billableKm,jastipFee,commission10,total:itemPrice+jastipFee+commission10,ready:true};
+}
+function updateJastipSummary(){
+  const q=getJastipQuote();
+  document.getElementById('jastipTotalQrisLabel').textContent=money(q.total);
+  document.getElementById('jastipCalcBox').innerHTML=`<b>Rincian Jastip QRIS:</b> Barang: <b>${money(q.itemPrice)}</b> · Ongkir (${q.billableKm} km × Rp5.000): <b>${money(q.jastipFee)}</b> · Komisi 10%: <b>${money(q.commission10)}</b> · Total QRIS: <b>${money(q.total)}</b>`;
+}
+document.getElementById('jastipProofFile').addEventListener('change',e=>{const f=e.target.files?.[0];document.getElementById('jastipProofPreview').textContent=f?'Bukti: '+f.name:'';});
+
+async function submitJastipOrder(e){
+  e.preventDefault();
+  const itemName=document.getElementById('jastipItemName').value.trim();
+  const storeAddress=document.getElementById('jastipStoreAddress').value.trim();
+  const itemPrice=+document.getElementById('jastipItemPrice').value;
+  const phone=document.getElementById('jastipBuyerPhone').value.trim();
+  const notes=document.getElementById('jastipNotes').value.trim();
+  const proofFile=document.getElementById('jastipProofFile').files?.[0];
+  if(!jastipStoreGps)return alert('Ambil GPS toko pesanan dahulu.');
+  if(!proofFile)return alert('Unggah bukti QRIS terlebih dahulu.');
+  const q=getJastipQuote(),id='JT-'+Date.now().toString().slice(-7);
+  jastipOrders.unshift({
+    id,created:new Date().toISOString(),itemName,storeAddress,storeGps:jastipStoreGps,
+    itemPrice:q.itemPrice,distanceKm:q.km,billableKm:q.billableKm,jastipFee:q.jastipFee,
+    commission10:q.commission10,total:q.total,phone,notes,
+    paymentProof:await readImage(proofFile),status:'Menunggu verifikasi QRIS'
+  });
+  persist();jastipStoreGps=null;e.target.reset();updateJastipSummary();closeJastipModal();
+  document.getElementById('trackId').value=id;trackOrder();
+  alert('Pesanan Jastip '+id+' tersimpan.');
+}
+
+/* Lacak & Ajukan Refund/Retur Pelanggan */
+function trackOrder(){
+  const id=document.getElementById('trackId').value.trim().toUpperCase();
+  const j=jastipOrders.find(x=>x.id===id);
+  const o=!j?orders.find(x=>x.id===id):null;
+  const rec=j||o;
+  const out=document.getElementById('trackingResult');
+  if(!rec){out.innerHTML='<p class="muted">Pesanan tidak ditemukan di browser ini.</p>';return;}
+  const isJ=Boolean(j);
+  const existingRefund=refundRequests.find(r=>r.orderId===rec.id);
+  out.innerHTML=`<div class="status">
+    <b>${esc(rec.id)}</b> ${isJ?'<span class="badge-preloved">JASTIP QRIS</span>':(rec.source==='preloved'?'<span class="badge-preloved">PRELOVED</span>':'<span class="badge-ok">TOKO</span>')}
+    <p style="margin:4px 0">Status: <b>${esc(rec.status)}</b> · Total: <b>${money(rec.total)}</b></p>
+    ${isJ?`<small class="muted">Barang: ${esc(rec.itemName)} · Toko: ${esc(rec.storeAddress)}</small>`:`<small class="muted">${esc(rec.name)} · ${esc(rec.district)} · ${rec.items.map(x=>esc(x.name)+' ×'+x.qty).join(', ')}</small>`}
+    ${existingRefund?`<div class="notice" style="margin-top:8px">Status Refund/Retur (${esc(existingRefund.id)}): <b>${esc(existingRefund.status)}</b> (${esc(existingRefund.type)} — ${esc(existingRefund.reason)})</div>`:`
+    <div style="margin-top:10px;border-top:1px solid #d7e9dd;padding-top:8px">
+      <b>Ajukan Refund / Retur Barang</b>
+      <div class="two" style="margin-top:4px">
+        <select id="refundType_${esc(rec.id)}" style="margin:0"><option value="Refund Dana">Refund Dana</option><option value="Retur Tukar Barang">Retur Tukar Barang</option></select>
+        <input id="refundReason_${esc(rec.id)}" placeholder="Alasan refund/retur..." style="margin:0">
+      </div>
+      <button class="danger-btn" style="width:100%;margin-top:6px" onclick="submitOrderRefund('${esc(rec.id)}',${isJ})">Kirim Pengajuan Refund / Retur</button>
+    </div>`}
+  </div>`;
+}
+
+/* Admin Render */
+function loadSettingsInputs(){
+  draftQrisImg=null;
+  document.getElementById('cfgStoreName').value=siteSettings.storeName||'MajuBersama';
+  document.getElementById('cfgStoreAddress').value=siteSettings.address||'';
+  document.getElementById('cfgStoreWa').value=siteSettings.storeWa||DEFAULT_STORE_WA;
+  document.getElementById('cfgSupportWa').value=siteSettings.supportWa||DEFAULT_SUPPORT_WA;
+  document.getElementById('adminQrisPreview').src=getQrisImage();
+}
+async function previewAdminQris(inp){const f=inp.files?.[0];if(!f)return;draftQrisImg=await readImage(f);document.getElementById('adminQrisPreview').src=draftQrisImg;}
+function saveSiteSettings(){
+  siteSettings={...siteSettings,storeName:document.getElementById('cfgStoreName').value.trim()||'MajuBersama',address:document.getElementById('cfgStoreAddress').value.trim(),storeWa:normalizePhone(document.getElementById('cfgStoreWa').value)||DEFAULT_STORE_WA,supportWa:normalizePhone(document.getElementById('cfgSupportWa').value)||DEFAULT_SUPPORT_WA,qrisImg:draftQrisImg||getQrisImage()};
+  draftQrisImg=null;persist();applyBranding();document.getElementById('siteSettingsNotice').textContent='Tersimpan.';toast('Pengaturan toko disimpan');
+}
+
+function renderAdmin(){
+  renderAdminFinanceSummary();
+
+  document.getElementById('adminJastipOrders').innerHTML=jastipOrders.map(j=>{
+    const fee10=calcTenPercentFee(j.total);
+    const rf=refundRequests.find(r=>r.orderId===j.id&&r.status==='Menunggu proses');
+    return `<div class="admin-row" style="display:block">
+      <b>${esc(j.id)} · ${esc(j.itemName)}</b> · Total: <b>${money(j.total)}</b> (Komisi 10%: ${money(fee10)})
+      <small>WA: ${esc(j.phone)} · Toko: ${esc(j.storeAddress)}</small>
+      <select style="margin-top:4px" onchange="setJastipStatus('${j.id}',this.value)">${JASTIP_STATUSES.map(s=>`<option ${j.status===s?'selected':''}>${s}</option>`).join('')}</select>
+      ${rf?`<div style="margin-top:6px"><span class="badge-refund">Refund/Retur: ${esc(rf.reason)}</span> <button class="primary" onclick="processRefundRequest('${rf.id}',true,false)">Setujui Refund</button> <button class="outline" onclick="processRefundRequest('${rf.id}',false,false)">Tolak</button></div>`:''}
+    </div>`;
+  }).join('')||'<p class="muted">Belum ada pesanan jastip.</p>';
+
+  document.getElementById('adminOrders').innerHTML=orders.map(o=>{
+    const fee10=calcTenPercentFee(o.total),net90=o.total-fee10;
+    const rf=refundRequests.find(r=>r.orderId===o.id&&r.status==='Menunggu proses');
+    return `<div class="admin-row" style="display:block">
+      <b>${esc(o.id)} · ${esc(o.name)}</b> ${o.source==='preloved'?'<span class="badge-preloved">PRELOVED</span>':'<span class="badge-ok">TOKO</span>'}
+      <small>Total: <b>${money(o.total)}</b> · Komisi 10%: ${money(fee10)} · Bersih 90%: ${money(net90)} · ${esc(o.payment)}</small>
+      <select style="margin-top:4px" onchange="setOrderStatus('${o.id}',this.value)">${STATUSES.map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select>
+      ${rf?`<div style="margin-top:6px"><span class="badge-refund">${esc(rf.type)}: ${esc(rf.reason)}</span> <button class="primary" onclick="processRefundRequest('${rf.id}',true,true)">Refund & Balik Stok</button> <button class="outline" onclick="processRefundRequest('${rf.id}',false,false)">Tolak</button></div>`:''}
+    </div>`;
+  }).join('')||'<p class="muted">Belum ada pesanan toko/preloved.</p>';
+
+  document.getElementById('adminPayoutList').innerHTML=payouts.map(w=>`<div class="admin-row"><div class="grow"><b>${esc(w.id)} · ${esc(w.recipient)}</b> <span class="badge-ok">${esc(w.module)}</span><small>Kotor: ${money(w.grossAmount)} · Komisi 10%: ${money(w.fee10)} · Cair bersih: <b>${money(w.netAmount)}</b> · ${esc(w.account)}</small></div><select style="width:auto;margin:0" onchange="setPayoutStatus('${w.id}',this.value)"><option ${w.status==='Menunggu pencairan'?'selected':''}>Menunggu pencairan</option><option ${w.status==='Dicairkan'?'selected':''}>Dicairkan</option><option ${w.status==='Ditolak'?'selected':''}>Ditolak</option></select></div>`).join('')||'<p class="muted">Belum ada riwayat penarikan saldo.</p>';
+
+  document.getElementById('adminPartners').innerHTML=partners.map(p=>`<div class="admin-row"><div class="grow"><b>${esc(p.store)}</b> (${esc(p.name)})<small>${esc(p.phone)} · Rek: ${esc(p.bankAcc||'-')}</small></div><select style="width:auto;margin:0" onchange="setPartnerStatus('${p.id}',this.value)"><option value="Pending" ${p.status==='Pending'?'selected':''}>Pending</option><option value="Disetujui" ${p.status==='Disetujui'?'selected':''}>Disetujui</option><option value="Ditolak" ${p.status==='Ditolak'?'selected':''}>Ditolak</option></select></div>`).join('')||'<p class="muted">Belum ada mitra.</p>';
+
+  document.getElementById('adminPartnerProducts').innerHTML=partnerProducts.map(x=>`<div class="admin-row"><img src="${esc(x.img)}"><div class="grow"><b>${esc(x.name)}</b><small>${esc(x.store)} · ${money(x.price)} · Stok ${x.stock} · ${esc(x.status)}</small></div>${x.status==='Menunggu persetujuan admin'?`<button class="primary" onclick="approvePartnerProduct('${x.id}')">Setujui</button><button class="outline" onclick="rejectPartnerProduct('${x.id}')">Tolak</button>`:''}</div>`).join('')||'<p class="muted">Belum ada produk mitra.</p>';
+
+  document.getElementById('adminProducts').innerHTML=products.map(p=>`<div class="admin-row"><img src="${esc(p.img)}"><div class="grow"><b>${esc(p.name)}</b><small>Toko · ${money(p.price)} · Stok ${p.stock}</small></div><button onclick="editProduct(${p.id},'store')">Edit</button><button onclick="deleteProduct(${p.id},'store')">Hapus</button></div>`).join('');
+  document.getElementById('adminPrelovedProducts').innerHTML=prelovedProducts.map(p=>`<div class="admin-row"><img src="${esc(p.img)}"><div class="grow"><b>${esc(p.name)}</b><small>Preloved · ${money(p.price)} · Stok ${p.stock}</small></div><button onclick="editProduct(${p.id},'preloved')">Edit</button><button onclick="deleteProduct(${p.id},'preloved')">Hapus</button></div>`).join('');
+
+  document.getElementById('adminPrelovedConsign').innerHTML=prelovedSubmissions.map(x=>`<div class="admin-row" style="display:block">
+    <b>${esc(x.id)} · ${esc(x.name)}</b> (${esc(x.owner)}) · Komisi 10%: <b>${money(x.fee10)}</b> · Bersih: <b>${money(x.netOwner)}</b>
+    <small>Status: <b>${esc(x.status)}</b> · Pencairan: <b>${esc(x.payoutStatus)}</b> · Rek: ${esc(x.payoutAcc||'-')}</small>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">
+      ${x.status==='Menunggu persetujuan admin'?`<button class="primary" onclick="approvePrelovedConsign('${x.id}')">Setujui & Tampilkan</button>`:''}
+      <select style="width:auto;margin:0;padding:6px" onchange="setPrelovedConsignStatus('${x.id}',this.value)"><option ${x.status==='Menunggu persetujuan admin'?'selected':''}>Menunggu persetujuan admin</option><option ${x.status==='Disetujui & tampil di Preloved'?'selected':''}>Disetujui & tampil di Preloved</option><option ${x.status==='Terjual'?'selected':''}>Terjual</option><option ${x.status==='Ditolak'?'selected':''}>Ditolak</option></select>
+      <select style="width:auto;margin:0;padding:6px" onchange="setPrelovedPayoutStatus('${x.id}',this.value)"><option ${x.payoutStatus==='Belum terjual'?'selected':''}>Belum terjual</option><option ${x.payoutStatus==='Menunggu pencairan'?'selected':''}>Menunggu pencairan</option><option ${x.payoutStatus==='Sudah dicairkan'?'selected':''}>Sudah dicairkan</option></select>
+    </div>
+  </div>`).join('')||'<p class="muted">Belum ada pengajuan titip jual.</p>';
+}
+
+async function readImage(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),s=Math.min(1,900/Math.max(im.width,im.height));c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.76));};im.onerror=rej;im.src=r.result;};r.onerror=rej;r.readAsDataURL(file);});}
+
+async function saveProduct(){
+  const id=document.getElementById('editId').value,target=document.getElementById('prodTarget').value,list=getCatalog(target);
+  const name=document.getElementById('prodName').value.trim(),price=+document.getElementById('prodPrice').value,stock=+document.getElementById('prodStock').value,cat=document.getElementById('prodCat').value,desc=document.getElementById('prodDesc').value.trim(),file=document.getElementById('prodImage').files[0];
+  if(!name||price<=0||stock<0)return alert('Lengkapi nama, harga, dan stok.');
+  const ex=list.find(p=>p.id===+id);
+  const img=file?await readImage(file):(ex?.img||'https://images.unsplash.com/photo-1542838132-92c53300491e?w=700');
+  if(ex)Object.assign(ex,{name,price,stock,cat,desc,img});
+  else list.push({id:Date.now(),name,price,stock,cat,desc,img});
+  persist();render();renderAdmin();resetProductForm();toast('Produk tersimpan');
+}
+function editProduct(id,source){const p=getCatalog(source).find(x=>x.id===id);if(!p)return;document.getElementById('editId').value=p.id;document.getElementById('prodTarget').value=source;document.getElementById('prodName').value=p.name;document.getElementById('prodPrice').value=p.price;document.getElementById('prodStock').value=p.stock;document.getElementById('prodCat').value=p.cat;document.getElementById('prodDesc').value=p.desc||'';document.getElementById('formTitle').textContent='Edit Produk';}
+function resetProductForm(){['editId','prodName','prodPrice','prodStock','prodDesc'].forEach(id=>document.getElementById(id).value='');document.getElementById('prodImage').value='';document.getElementById('formTitle').textContent='Tambah / Edit Produk';}
+function deleteProduct(id,source){if(!confirm('Hapus produk?'))return;if(source==='preloved')prelovedProducts=prelovedProducts.filter(p=>p.id!==id);else products=products.filter(p=>p.id!==id);persist();render();renderAdmin();}
+function setOrderStatus(id,status){const o=orders.find(x=>x.id===id);if(!o)return;o.status=status;persist();renderAdminFinanceSummary();renderAdmin();}
+function setJastipStatus(id,status){const j=jastipOrders.find(x=>x.id===id);if(!j)return;j.status=status;persist();renderAdminFinanceSummary();renderAdmin();}
+
+function openTracking(){show('trackingModal');}
+function openContact(){show('contactModal')}
+document.getElementById('contactPhoto').addEventListener('change',e=>{const f=e.target.files?.[0];document.getElementById('contactPhotoPreview').innerHTML=f?'<span class="muted">Foto: '+esc(f.name)+'</span>':'';});
+async function sendContact(e){
+  e.preventDefault();
+  const msg=`Kontak ${siteSettings.storeName}\nNama: ${document.getElementById('contactName').value}\nWA: ${document.getElementById('contactPhone').value}\nAlamat: ${document.getElementById('contactAddress').value}\nPesan: ${document.getElementById('contactIssue').value}`;
+  window.open(`https://wa.me/${getSupportWa()}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+applyBranding();
+updateConsignPreview();
+updateJastipSummary();
+render();
+checkSecretAdminUrl();
+</script></body></html>
